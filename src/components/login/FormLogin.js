@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import StylesText from '../../styles/StylesText';
 const { width, height } = Dimensions.get('window');
 export default class FormLogin extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ export default class FormLogin extends Component {
             style={[styles.textInput, styles.layout]}
          />
          <TouchableOpacity
+            onPress={() => this.props.navigate('Home')}
             activeOpacity={0.6}
             style={[styles.layout, styles.buttonLogin]}
          >
@@ -43,13 +45,13 @@ export default class FormLogin extends Component {
             activeOpacity={0.6}
             style={[styles.layout, styles.buttonNoBg]}
          >
-            <Text style={styles.textButtonLogin}>Forgot Your Password?</Text>
+            <Text style={[styles.textButtonLogin, StylesText.fonts, { textDecorationLine: 'underline' }]}>Forgot Your Password?</Text>
          </TouchableOpacity>
          <TouchableOpacity
             activeOpacity={0.6}
-            style={[styles.layout, styles.buttonNoBg]}
+            style={[styles.layout, styles.buttonNoBg, ]}
          >
-            <Text style={styles.textButtonLogin}>New Account</Text>
+            <Text style={[styles.textButtonLogin, StylesText.fonts]}>New Account</Text>
          </TouchableOpacity>
       </View>
     );

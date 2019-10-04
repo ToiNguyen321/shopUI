@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer } from 'react-navigation';
 import transitionConfig from './TransitonConfig';
 import OpenApp from '../components/openApp/OpenApp';
 import Login from '../components/login/Login';
-import { createAppContainer } from 'react-navigation';
+import Home from '../components/home/Home';
+
+
 
 const StackNavigator = createStackNavigator({
    OpenApp: {
@@ -11,12 +14,17 @@ const StackNavigator = createStackNavigator({
    },
    Login: {
       screen: Login
+   },
+   Home: {
+      screen: Home
    }
 },
 {
+   initialRouteName: 'Home',
    transitionConfig,
    defaultNavigationOptions: {
       header: null,
+      gesturesEnabled: false,
    }
 }
 )

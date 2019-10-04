@@ -24,7 +24,7 @@ export default class Login extends Component {
         >
            <Text style={[styles.textTitle, styleText.fonts]}>Enter Premium Sound</Text>
            <View style={[styles.viewLogin, styleText.fonts]}>
-               <FormLogin />
+               <FormLogin navigate={this.props.navigation.navigate} />
            </View>
         </View>
       </View>
