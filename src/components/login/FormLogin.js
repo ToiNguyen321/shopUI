@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, Dimensions } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, Text, StyleSheet, TextInput, Dimensions, TouchableOpacity } from 'react-native';
 import StylesText from '../../styles/StylesText';
 const { width, height } = Dimensions.get('window');
 export default class FormLogin extends Component {

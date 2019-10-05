@@ -32,7 +32,7 @@ export default class Header extends Component {
                   onPress={()=>alert('Cart')}
                   style={styles.buttonCart}
                >
-                  <View style = {styles.viewnumberProduct}>
+                  <View style = {styles.viewNumberProduct}>
                      <Text style={styles.numberProduct}>20</Text>
                   </View>
                   <Icon 
@@ -53,12 +53,14 @@ export default class Header extends Component {
 }
 const styles = StyleSheet.create({
    fill: {
+      // position: 'absolute',
+      zIndex: 1000,
       width,
       height: 45,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      backgroundColor: 'rgba(0,0,0,0)',
+      backgroundColor: 'rgba(255,255,255,1.0)',
       paddingRight: 20
    },
    textTitle: {
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
       // color: '#FFF'
       fontSize: 25,
    },
-   viewnumberProduct: {
+   viewNumberProduct: {
       position: 'absolute',
       top: 5, 
       right: 5,

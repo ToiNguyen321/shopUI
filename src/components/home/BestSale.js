@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, StyleSheet, Image, Animated, Easing } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, Text, Dimensions, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 const { width, height } = Dimensions.get('window');
 export default class BestSale extends Component {
     constructor(props) {
@@ -52,7 +51,7 @@ export default class BestSale extends Component {
                         style={[styles.viewButtonBest, { transform: [{translateX}]}]}
                     >
                         <TouchableOpacity
-                            style={[styles.buttonBest, ]}
+                            style={[styles.buttonBest ]}
                         >
                             <Animated.Text style={[styles.textButtonBest, { color }]}>Best Seller</Animated.Text>
                         </TouchableOpacity>
@@ -81,16 +80,15 @@ export default class BestSale extends Component {
 const styles = StyleSheet.create({
     fill: {
         flex: 1,
-        // borderWidth: 2,
     },
     container: {
-        width: '100%',
         height: 160,
         backgroundColor: '#BADAED',
         marginTop: 10,
         flexDirection: 'row',
         borderRadius: 5,
-        elevation: 5
+        elevation: 5,
+        marginHorizontal: 20,
     },
     viewButtonBest: {
         flex: 3,
