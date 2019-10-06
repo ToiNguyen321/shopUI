@@ -16,7 +16,7 @@ export default class Home extends Component {
       data: [
         { id: 1, image: require('../../assets/images/products/Image1.png') },
         { id: 2, image: require('../../assets/images/products/Image2.png') },
-        { id: 3, image: require('../../assets/images/products/Image4.png') },
+        { id: 3, image: require('../../assets/images/products/Image3.png') },
         { id: 4, image: require('../../assets/images/products/Image5.png') },
         { id: 5, image: require('../../assets/images/products/Image6.png') },
         { id: 6, image: require('../../assets/images/products/Image2.png') },
@@ -53,15 +53,15 @@ export default class Home extends Component {
     })
     return (
       <View style={styles.container}>
-        <Header title={'Welcome'} back={true} navigation={this.props.navigation} />
+        <Header title={'Welcome'} back={false} navigation={this.props.navigation} />
         <ScrollView style={styles.container}>
           <Animated.View style={[ styles.bestSale, {transform: [ {translateY} ]}]}>
             <BestSale />
           </Animated.View>
           {
             this.state.dataListCategories.map((item,index) =>
-              <Animated.View key={index} style={[styles.boxProduct]}>
-                <BoxProduct title={item.title} data={this.state.data} onScroll={this._onScroll} />
+              <Animated.View key={`${index}`} style={[styles.boxProduct]}>
+                <BoxProduct navigate={this.props.navigation.navigate} title={item.title} data={this.state.data} onScroll={this._onScroll} />
               </Animated.View>
             )
           }

@@ -27,8 +27,8 @@ export default class BoxProduct extends Component {
                onScroll={this.props.onScroll}
                style={styles.flatList}
                data={this.props.data}
-               renderItem={({item, index}) => <ProductBox item={item} index={index} />}
-               keyExtractor={item => item.id}
+               renderItem={({item, index}) => <ProductBox navigate={this.props.navigate} item={item} index={index} />}
+               keyExtractor={item => `${item.id}`}
                onEndReached={()=>alert('xxx')}
                onEndReachedThreshold={0.2}
             />

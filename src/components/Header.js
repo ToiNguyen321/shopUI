@@ -53,15 +53,14 @@ export default class Header extends Component {
 }
 const styles = StyleSheet.create({
    fill: {
-      // position: 'absolute',
-      zIndex: 1000,
       width,
       height: 45,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
       backgroundColor: 'rgba(255,255,255,1.0)',
-      paddingRight: 20
+      paddingRight: 20,
+      zIndex: 10,
    },
    textTitle: {
       color: '#1E2D3E',

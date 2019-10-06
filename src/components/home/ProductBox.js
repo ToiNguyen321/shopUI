@@ -14,10 +14,10 @@ export default class ProductBox extends Component {
     return (
       <View style={[styles.fill, styles.marginRight , styles.marginLeft ]}>
          <TouchableWithoutFeedback
-            onPress={()=>alert('xxx')}
+            onPress={()=> this.props.navigate('ProductDetail')}
          >
             <View style={styles.viewImage}>
-               <Image source={this.props.item.image} />
+               <Image style={styles.imageProduct} source={this.props.item.image} />
             </View>
             <View style={styles.viewInfo}>
                <Text style={styles.textName}>Floral Dress</Text>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
       borderWidth: 0.0,
       marginBottom: 5,
       borderRadius: 7,
-      elevation: 3,
+      elevation: 5,
       marginTop: 5,
    },
    marginLeft: {
@@ -53,6 +53,10 @@ const styles = StyleSheet.create({
       height: 100,
       justifyContent: 'center',
       alignItems: 'center',
+   },
+   imageProduct: {
+      maxWidth: '90%',
+      maxHeight: 90
    },
    viewInfo: {
       alignItems: 'flex-start',
