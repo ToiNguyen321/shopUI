@@ -28,7 +28,7 @@ export default class ProductReview extends Component {
             <View style={styles.viewAvatar}>
                <Image
                   style={styles.imageAvatar}
-                  source={require('../../../assets/images/user.jpg')}
+                  source={require('../../assets/images/user.jpg')}
                />
             </View>
             <View style={styles.viewContent}>
@@ -52,7 +52,7 @@ export default class ProductReview extends Component {
                   showsHorizontalScrollIndicator={false}
                >
                      {
-                        item.imageReview.map((item, index) => <Image key={`${index}`} source={require('../../../assets/images/user.jpg')} style={styles.imageReview} />)
+                        item.imageReview.map((item, index) => <Image key={`${index}`} source={require('../../assets/images/user.jpg')} style={styles.imageReview} />)
                      }
                </ScrollView>
             </View>

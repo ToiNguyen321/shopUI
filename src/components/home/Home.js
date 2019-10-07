@@ -41,11 +41,9 @@ export default class Home extends Component {
     
   }
   componentDidMount(){
-    console.log('componentDidMount')
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', this._hardwareBackPress);
   }
   componentWillUnmount() {
-    console.log('Remove')
     this.backHandler.remove()
   }
   _hardwareBackPress = ()=>{
@@ -55,11 +53,6 @@ export default class Home extends Component {
     const translateY = this.state.scrollY.interpolate({
       inputRange: [0, 200],
       outputRange: [0, -200],
-      extrapolate: 'clamp'
-    })
-    const marginTop = this.state.scrollY.interpolate({
-      inputRange: [0, 200],
-      outputRange: [200, 0],
       extrapolate: 'clamp'
     })
     return (

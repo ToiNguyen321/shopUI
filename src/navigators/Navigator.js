@@ -7,30 +7,18 @@ import OpenApp from '../components/openApp/OpenApp';
 import Login from '../components/login/Login';
 import Home from '../components/home/Home';
 import Search from '../components/search/Search';
-import ProductDetail from '../components/product/productDetail/ProductDetail';
+import ProductDetail from '../components/productDetail/ProductDetail';
 
 
 
-const stackNavigator = createStackNavigator(
+const stackHome = createStackNavigator(
    {
-      OpenApp: {
-         screen: OpenApp
-      },
-      Login: {
-         screen: Login
-      },
       Home: {
          screen: Home
-      },
-      ProductDetail: {
-         screen: ProductDetail
-      },
-      Search: {
-         screen: Search
       }
    },
    {
-      initialRouteName: 'Search',
+      initialRouteName: 'Home',
       transitionConfig,
       defaultNavigationOptions: {
          header: null,
@@ -41,10 +29,36 @@ const stackNavigator = createStackNavigator(
 
 const bottomTabNavigator = createBottomTabNavigator({
    Home: {
-      screen: stackNavigator
+      screen: stackHome
    },
    Search: {
       screen: Search
    }
 })
-export default createAppContainer(stackNavigator);
+
+const stackProduct = createStackNavigator(
+   {
+      OpenApp: {
+         screen: OpenApp
+      },
+      Login: {
+         screen: Login
+      },
+      Home: {
+         screen: bottomTabNavigator
+      },
+      ProductDetail: {
+         screen: ProductDetail,
+      },
+   },
+   {
+      initialRouteName: 'OpenApp',
+      transitionConfig,
+      defaultNavigationOptions: {
+         header: null,
+         gesturesEnabled: false,
+      }
+   }
+)
+
+export default createAppContainer(stackProduct);

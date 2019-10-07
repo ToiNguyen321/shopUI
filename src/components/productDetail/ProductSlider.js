@@ -13,7 +13,7 @@ export default class ProductSlider extends Component {
       <View style={styles.container}>
         <Image 
             style={[styles.imageProduct]}
-            source={require('../../../assets/images/products/Image3.png')} />
+            source={require('../../assets/images/products/Image3.png')} />
       </View>
     );
   }

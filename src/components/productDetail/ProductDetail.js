@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Animated, TouchableOpacity, View, Dimensions, StyleSheet, BackHandler } from "react-native";
 import { ScrollableTab, Tab, TabHeading, Tabs } from "native-base";
-import Header from "../../Header";
+import Header from "../Header";
 import ProductSlider from "./ProductSlider";
 import ProductInfoTop from "./ProductInfoTop";
 import ProductAddCartBottom from "./ProductAddCartBottom";
