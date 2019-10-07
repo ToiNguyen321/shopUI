@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import { Animated, Dimensions, Platform, Text, TouchableOpacity, View } from "react-native";
-import { List, ListItem as Item, ScrollableTab, Tab, TabHeading, Tabs } from "native-base";
-import Header from "../Header";
+import { Animated, TouchableOpacity, View, Dimensions, StyleSheet, BackHandler } from "react-native";
+import { ScrollableTab, Tab, TabHeading, Tabs } from "native-base";
+import Header from "../../Header";
 import ProductSlider from "./ProductSlider";
 import ProductInfoTop from "./ProductInfoTop";
 import ProductAddCartBottom from "./ProductAddCartBottom";
+import ProductTabOne from "./ProductTabOne";
+import ProductTabTwo from "./ProductTabTwo";
+import ProductTabThree from "./ProductTabThree";
 
 const IMAGE_HEIGHT = 200;
 const HEADER_HEIGHT = 0;
@@ -19,7 +22,6 @@ export default class ProductDetail extends Component {
       activeTab: 0,
       height: 500
     };
-    this.nScroll.addListener(Animated.event([{ value: this.scroll }], { useNativeDriver: false }));
   }
 
   nScroll = new Animated.Value(0);
@@ -33,26 +35,66 @@ export default class ProductDetail extends Component {
     inputRange: [0, SCROLL_HEIGHT, SCROLL_HEIGHT + 1],
     outputRange: [0, 0, 1]
   });
-  tabContent = (x, i) =>
-    <View style={{ height: this.state.height + 70 }}>
-      <List onLayout={({ nativeEvent: { layout: { height } } }) => {
-        this.heights[i] = height;
-        if (this.state.activeTab === i) this.setState({ height })
-      }}>
-        {new Array(x).fill(null).map((_, i) => <Item key={i}><Text>Item {i}</Text></Item>)}
-      </List>
-    </View>;
-  heights = [500, 500, 500];
+  heights = [300, 300, 300];
+  tabContent = (x, i) =>{
+    
+    let render = <ProductTabOne />
+    if(i == 1){
+      render = <ProductTabTwo />
+    }else if(i === 2){
+      render = <ProductTabThree />
+    }
+    return (
+      <View style={{ height: this.state.height + 70 }}>
+        <View onLayout={({ nativeEvent: { layout: { height } } }) => {
+          this.heights[i] = height;
+          if (this.state.activeTab === i) this.setState({ height })
+        }}>
+          {
+            render
+          }
+        </View>
+    </View>
+    )
+  }
+  componentDidMount(){
+    
+    console.log('componentDidMount')
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this._hardwareBackPress);
+  }
+  componentWillUnmount() {
+    this.backHandler.remove()
+  }
+  _hardwareBackPress = ()=>{
+    return false;
+  }
+  isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+    const paddingToBottom = 50;
+    return layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom && layoutMeasurement.height + contentOffset.y <=
+      contentSize.height;
+  };
 
   render() {
     return (
       <View style={{ flex: 1 }}>
         <Header title={'Welcome'} back={true} navigation={this.props.navigation} />
+        <View style={{ height: 10}} />
         <ProductInfoTop />
         <Animated.ScrollView
           scrollEventThrottle={5}
           showsVerticalScrollIndicator={false}
-          onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.nScroll } } }], { useNativeDriver: true })}
+          onScroll={
+            Animated.event([
+            { nativeEvent: { contentOffset: { y: this.nScroll } } }], 
+            { useNativeDriver: true,
+              listener: ({nativeEvent}) => {
+                  if (this.isCloseToBottom(nativeEvent)) {
+                    console.log('xxxxxxxxxxx')
+                  }
+                },
+            }
+          )}
           style={{ zIndex: 0 }}>
           <Animated.View style={{
             transform: [{ translateY: Animated.multiply(this.nScroll, 0.65) }],
@@ -68,33 +110,22 @@ export default class ProductDetail extends Component {
             }}
             renderTabBar={(props) =>
               <Animated.View
-                style={{ transform: [{ translateY: this.tabY }], zIndex: 1, backgroundColor: BGR }}>
+                style={[styles.renderTabBar , { transform: [{ translateY: this.tabY }] }]}>
                 <ScrollableTab {...props}
-                  style={{ backgroundColor: BGR, }}
+                  style={styles.scrollTab}
                   renderTab={(name, page, active, onPress, onLayout) => (
                     <TouchableOpacity key={page}
                       onPress={() => onPress(page)}
                       onLayout={onLayout}
                       activeOpacity={0.4}>
                       <Animated.View
-                        style={{
-                          flex: 1,
-                          backgroundColor: BGR
-                        }}>
-                        <TabHeading scrollable
-                          style={{
-                            backgroundColor: active ? "#FF6969" : null,
-                            marginTop: 5,
-                            height: 40,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            width: 100,
-                            borderRadius: 30,
-                          }}
+                        style={styles.viewTab}>
+                        <TabHeading 
+                          style={[styles.TabHeading, {backgroundColor: active ? "#FF6969" : null}]}
                           active={active}>
                           <Animated.Text style={{
-                            fontWeight: active ? "bold" : "normal",
                             color: active ? '#FFF' : '#727C8E',
+                            fontWeight: active ? "bold" : "normal",
                             fontSize: 16
                           }}>
                             {name}
@@ -106,8 +137,8 @@ export default class ProductDetail extends Component {
                 />
               </Animated.View>
             }>
-            <Tab heading="Product">
-              {this.tabContent(3, 0)}
+            <Tab heading="Product" tabStyle={{ padding: 0 }}>
+              {this.tabContent(15, 0)}
             </Tab>
             <Tab heading="Details">
               {this.tabContent(15, 1)}
@@ -122,3 +153,24 @@ export default class ProductDetail extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  renderTabBar: {
+    zIndex: 1, 
+    backgroundColor: BGR
+  },
+  scrollTab: { backgroundColor: 'white', },
+  viewTab: {
+    flex: 1,
+    backgroundColor: BGR
+  },
+  TabHeading: {
+    marginTop: 5,
+    marginBottom: 5,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 100,
+    borderRadius: 30,
+  }
+})

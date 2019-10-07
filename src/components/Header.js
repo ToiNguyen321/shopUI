@@ -18,7 +18,7 @@ export default class Header extends Component {
                   this.props.back ?
                   <TouchableNativeFeedback
                      style={styles.buttonBack}
-                     onPress={()=>alert('Back')}
+                     onPress={()=>this.props.navigation.goBack()}
                   >
                      <Icon name="arrow-back" type={'Ionicons'} size={20} />
                   </TouchableNativeFeedback>
@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
    textTitle: {
       color: '#1E2D3E',
       fontWeight: '900',
-      fontSize: 21
+      fontSize: 21,
+      marginLeft: 20
    },
    buttonBack: { 
       paddingHorizontal: 20, 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Animated } from 'react-native';
+import { View, Text, StyleSheet, Animated, BackHandler } from 'react-native';
 import Header from '../Header';
 import BestSale from './BestSale';
 import BoxProduct from './BoxProduct';
@@ -38,8 +38,19 @@ export default class Home extends Component {
         }
       ],
     )
+    
   }
-
+  componentDidMount(){
+    console.log('componentDidMount')
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this._hardwareBackPress);
+  }
+  componentWillUnmount() {
+    console.log('Remove')
+    this.backHandler.remove()
+  }
+  _hardwareBackPress = ()=>{
+    return true;
+  }
   render() {
     const translateY = this.state.scrollY.interpolate({
       inputRange: [0, 200],

@@ -28,7 +28,7 @@ export default class ProductInfoTop extends Component {
 const styles = StyleSheet.create({
     positionTop: {
         position: 'absolute',
-        top: 0,
+        top: 10,
         left: 50,
         right: 50,
         height: 42,

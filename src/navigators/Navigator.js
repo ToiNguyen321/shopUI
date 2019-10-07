@@ -7,7 +7,7 @@ import OpenApp from '../components/openApp/OpenApp';
 import Login from '../components/login/Login';
 import Home from '../components/home/Home';
 import Search from '../components/search/Search';
-import ProductDetail from '../components/product/ProductDetail';
+import ProductDetail from '../components/product/productDetail/ProductDetail';
 
 
 
@@ -24,10 +24,13 @@ const stackNavigator = createStackNavigator(
       },
       ProductDetail: {
          screen: ProductDetail
+      },
+      Search: {
+         screen: Search
       }
    },
    {
-      initialRouteName: 'ProductDetail',
+      initialRouteName: 'Search',
       transitionConfig,
       defaultNavigationOptions: {
          header: null,
