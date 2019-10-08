@@ -10,6 +10,8 @@ export default class CheckOutCart extends Component {
   }
 
   render() {
+    const {nameNavigate, nameButton } = this.props
+    let navigate = nameNavigate ? nameNavigate : 'CheckOut';
     return (
       <View style={styles.container}>
         <View style={[styles.fill]}>
@@ -20,9 +22,9 @@ export default class CheckOutCart extends Component {
             <TouchableOpacity
                 activeOpacity={0.7}
                 style={ [styles.button, styles.buttonCart]}
-                onPress={() => this.props.navigation.navigate(`CheckOut`)}
+                onPress={() => this.props.navigation.navigate(navigate)}
             >
-                <Text style={styles.buttonText}>CHECKOUT</Text>
+                <Text style={styles.buttonText}>{nameButton ? nameButton : 'CHECKOUT'}</Text>
                 <Icon 
                     style={[styles.buttonIcon]}
                     name="rightcircleo" 
@@ -70,7 +72,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         backgroundColor: '#F5F6F8',
         borderTopWidth: 1,
-        borderColor: 'rgba(114,124,142,0.3)'
+        borderColor: 'rgba(114,124,142,0.3)',
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        left: 0
     },
     buttonCart: {
         backgroundColor: '#FF6969'

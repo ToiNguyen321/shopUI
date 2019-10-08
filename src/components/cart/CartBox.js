@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Icon } from 'native-base';
+import { colorBoderButton, colorIconCam, colorBoder } from '../../styles/Color';
+import StylesText from '../../styles/StylesText';
+
 const { width } = Dimensions.get('window')
 export default class CartBox extends Component {
    constructor(props) {
@@ -26,8 +29,8 @@ export default class CartBox extends Component {
                      <Image style={styles.image} source={item.image} />
                   </View>
                   <View style={styles.viewInfo}>
-                     <Text style={styles.name}>{item.name}</Text>
-                     <Text style={styles.color}>{color}</Text>
+                     <Text style={[styles.name, StylesText.text]}>{item.name}</Text>
+                     <Text style={[styles.color, StylesText.text]}>{color}</Text>
                      <Text style={styles.price}>${item.price}</Text>
                      <View style={styles.viewButton}>
                         <TouchableOpacity>
@@ -77,17 +80,15 @@ const styles = StyleSheet.create({
       borderColor: 'rgba(114,124,142,0.3)'
    },
    name: {
-      color: '#515C6F',
       fontSize: 18,
    },
    color: {
-      color: '#515C6F',
       fontSize: 14,
       marginTop: -10
    },
    price: {
       fontSize: 14,
-      color: '#FF6969',
+      color: colorIconCam,
       fontWeight: '900',
    },
    viewButton: {
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-start'
    },
    iconButton: {
-      color: '#727C8E',
+      color: colorBoderButton,
       fontSize: 20,
    },
    textNumberProduct: {

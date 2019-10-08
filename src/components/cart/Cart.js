@@ -5,6 +5,7 @@ import Header from '../Header';
 import { FlatList } from 'react-native-gesture-handler';
 import CartBox from './CartBox';
 import CheckOutCart from './CheckOutCart';
+import { colorBackground } from '../../styles/Color';
 
 
 
@@ -56,9 +57,9 @@ export default class Cart extends Component {
 const styles = StyleSheet.create({
    fill: {
       flex: 1,
-      backgroundColor: '#F1F3F6'
+      backgroundColor: colorBackground
    },
    flatList: {
-      paddingBottom: 10,
+      paddingBottom: 69,
    }
 })
