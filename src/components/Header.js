@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
-import { Icon } from 'native-base';
+import { Icon, Item, Input } from 'native-base';
 import { TouchableWithoutFeedback, TouchableNativeFeedback } from 'react-native-gesture-handler';
 const { width, height } = Dimensions.get('window')
 export default class Header extends Component {
    constructor(props) {
       super(props);
       this.state = {
+         
       };
    }
 
@@ -27,31 +28,80 @@ export default class Header extends Component {
                }
                
             </View>
-            <View style={[ styles.viewLeft ]}>
-               <TouchableWithoutFeedback
-                  onPress={()=>alert('Cart')}
-                  style={styles.buttonCart}
-               >
-                  <View style = {styles.viewNumberProduct}>
-                     <Text style={styles.numberProduct}>20</Text>
+            {
+               this.props.search ? 
+               <View style={styles.flex}>
+                  <Item style={styles.itemSearch}>
+                     <Icon active name='search' style={styles.iconSearch} />
+                     <Input 
+                        style={styles.textInputSearch}
+                        onChangeText={(val) => this.props.onChangeText(val)}
+                        placeholder="Search"
+                        value={this.props.textSearch}
+                        onEndEditing={()=> this.props.searchFunction()}
+                     />
+                  </Item>
+               </View>
+               : null
+            }
+            
+            {
+               this.props.close ? 
+                  <View style={[ styles.viewLeft ]}>
+                     <TouchableWithoutFeedback
+                        onPress={()=>this.props.navigation.goBack()}
+                     >
+                        <Icon name="close" type={'AntDesign'} size={20} style={styles.iconClose} />
+                     </TouchableWithoutFeedback>
                   </View>
-                  <Icon 
-                     name="cart"
-                     size={15} 
-                     style={[ styles.iconUser ]} />
-               </TouchableWithoutFeedback>
-               <TouchableWithoutFeedback>
-                  <Image 
-                     style={[ styles.imageUser ]}
-                     source={require('../assets/images/user.jpg')} 
-                  />
-               </TouchableWithoutFeedback>
-            </View>
+               :
+                  <View style={[ styles.viewLeft ]}>
+                     <TouchableWithoutFeedback
+                        onPress={()=>alert('Cart')}
+                        style={styles.buttonCart}
+                     >
+                        <View style = {styles.viewNumberProduct}>
+                           <Text style={styles.numberProduct}>20</Text>
+                        </View>
+                        <Icon 
+                           name={'shopping-cart'} type={'Feather'}
+                           style={[ styles.iconUser, styles.iconClose ]} />
+                     </TouchableWithoutFeedback>
+                     <TouchableWithoutFeedback>
+                        <Image 
+                           style={[ styles.imageUser ]}
+                           source={require('../assets/images/user.jpg')} 
+                        />
+                     </TouchableWithoutFeedback>
+                  </View>
+            }
+            
          </View>
       );
    }
 }
 const styles = StyleSheet.create({
+   flex: {
+      flex: 1
+   },
+   itemSearch: {
+      marginVertical: 5,
+      borderRadius: 40, 
+      backgroundColor: 'rgba(114,124,142,0.1)',
+      paddingHorizontal: 10,
+      marginRight: 10,
+      height: 35,
+      borderColor:'rgba(114,124,142,0.0)',
+   },
+   textInputSearch: { 
+      fontSize: 15, 
+      color: '#515C6F', 
+      marginRight: 10
+   },
+   iconSearch: {
+      color: '#FF6969',
+      fontSize: 20,
+   },
    fill: {
       width,
       height: 45,
@@ -60,17 +110,22 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: 'rgba(255,255,255,1.0)',
       paddingRight: 20,
+      paddingLeft: 20,
       zIndex: 10,
    },
    textTitle: {
-      color: '#1E2D3E',
-      fontWeight: '900',
-      fontSize: 21,
-      marginLeft: 20
+      color: '#515C6F',
+      fontWeight: 'bold',
+      fontSize: 24,
+      textShadowOffset: {
+         width: 2,
+         height: 3
+      },
+      textShadowColor: 'rgba(81,92,111, 0.7)',
+      textShadowRadius: 5
    },
    buttonBack: { 
-      paddingHorizontal: 20, 
-      paddingVertical: 10 
+      width: 40,
    },
    viewLeft: {
       flexDirection: 'row',
@@ -79,7 +134,6 @@ const styles = StyleSheet.create({
    },
    iconUser: {
       marginRight: 10,
-      // color: '#FFF'
       fontSize: 25,
    },
    viewNumberProduct: {
@@ -89,7 +143,7 @@ const styles = StyleSheet.create({
       zIndex: 9,
       minHeight: 15,
       minWidth: 15,
-      backgroundColor: '#7C6BD7',
+      backgroundColor: '#FF6969',
       borderRadius: 7.5,
    },
    buttonCart: { 
@@ -110,6 +164,9 @@ const styles = StyleSheet.create({
       width: 25,
       height: 25,
       
+   },
+   iconClose: {
+      color: '#FF6969'
    }
 
 })

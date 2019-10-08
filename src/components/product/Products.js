@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Animated } from 'react-native';
 import ProductBox from './ProductBox';
 
-export default class Product extends Component {
+export default class Products extends Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -22,7 +22,6 @@ export default class Product extends Component {
                onEndReached={()=>alert('xxx')}
                onEndReachedThreshold={0.2}
             />
-         // </View>
       );
    }
 }

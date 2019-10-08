@@ -13,7 +13,8 @@ export default class Search extends Component {
         {id: 4},
         {id: 3},
         {id: 2},
-      ]
+      ],
+      textSearch: ""
     };
   }
   _viewNew = (item, index) => {
@@ -37,13 +38,14 @@ export default class Search extends Component {
   _viewSearch = (item, index) => {
     return (
       <TouchableOpacity
+        key={`${index}`}
       >
-        {/* <View style={styles.viewRecommended}>
-
-        </View> */}
         <Text style={styles.textRecommended}>Denim Jea</Text>
       </TouchableOpacity>
     )
+  }
+  _onEndEditing= () => {
+    this.props.navigation.navigate('SearchResult', {textSearch: this.state.textSearch})
   }
   render() {
     return (
@@ -54,6 +56,8 @@ export default class Search extends Component {
           placeholder="Search Something"
           placeholderTextColor="rgba(81,92,111,0.5)"
           style={styles.textInput}
+          onChangeText={(textSearch) => this.setState({textSearch})}
+          onEndEditing = {this._onEndEditing}
         />
         <View>
           <View style={styles.viewNewTop}>
@@ -77,14 +81,6 @@ export default class Search extends Component {
               <Text style={styles.textClearViewNew}>REFRESH</Text>
             </TouchableOpacity>
           </View>
-          {/* <FlatList 
-            style={{ marginLeft: 20,}}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={this.state.dataViewNew}
-            keyExtractor={(item, index) => `${index}`}
-            renderItem={({item, index}) => this._viewSearch(item, index) }
-          /> */}
           <View style={{flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20,}}>
             {
               this.state.dataViewNew.map((item, index) => this._viewSearch(item, index))
