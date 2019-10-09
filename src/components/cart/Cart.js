@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import * as actions from '../../redux/actions'
 import IconTab from '../../navigators/IconTab';
 import Header from '../Header';
 import { FlatList } from 'react-native-gesture-handler';
@@ -8,6 +9,7 @@ import CartBox from './CartBox';
 import CheckOutCart from './CheckOutCart';
 import { colorBackground } from '../../styles/Color';
 import { dataProducts, dataCarts } from '../../common/dataProduct';
+import { Button } from 'native-base';
 
 
 
@@ -42,17 +44,20 @@ class Cart extends Component {
       )
    })
    render() {
+      console.log(this.props)
       return (
          <View style={styles.fill}>
             <Header title={'Cart'} back={false} navigation={this.props.navigation} />
             <View style={styles.fill}>
                <FlatList
                   contentContainerStyle={styles.flatList}
-                  data={this.state.dataCarts}
+                  data={this.props.carts}
                   keyExtractor={(item, index) => `${index}`}
                   renderItem={({ item }) => <CartBox item={item} />}
                />
+               
             </View>
+            
             <CheckOutCart navigation={this.props.navigation} />
          </View>
       );
@@ -63,7 +68,7 @@ const mapStateToProps = (state, ownProps) => {
       carts: state.carts
    }
 }
-export default connect(mapStateToProps, null)(Cart)
+export default connect(mapStateToProps, actions)(Cart)
 const styles = StyleSheet.create({
    fill: {
       flex: 1,

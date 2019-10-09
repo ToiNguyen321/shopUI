@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Icon } from 'native-base';
 import { connect } from 'react-redux'
-import * as actions from '../../redux/Actions'
-import { colorBoderButton, colorIconCam, colorBoder } from '../../styles/Color';
+import * as actions from '../../redux/actions'
+import { colorBorderButton, colorIconCam,  } from '../../styles/Color';
 import StylesText from '../../styles/StylesText';
 
 const { width } = Dimensions.get('window')
@@ -12,34 +12,36 @@ class CartBox extends Component {
    constructor(props) {
       super(props);
       this.state = {
+         item: this.props.item
       };
    }
 
    render() {
-      const item = this.props.item;
+      const item = this.state.item;
+      console.log(item)
       let color = "";
       let numberTotal = 0;
       return (
          <View>
          {
-            item.amount > 0 ?
+           item.amount > 0 ?
                <View style={styles.fill}>
                   <View style={styles.viewImage}>
                      <Image style={styles.image} source={item.image} />
                   </View>
                   <View style={styles.viewInfo}>
-                     <Text numberOfLines={1} style={[styles.name, StylesText.text]}>{item.name}</Text>
+                     <Text numberOfLines={1} style={[styles.name, StylesText.text]}>{this.props.item.name}</Text>
                      {/* <Text numberOfLines={1} style={[styles.color, StylesText.text]}>{color}</Text> */}
                      <Text numberOfLines={1} style={styles.price}>${item.price}</Text>
                      <View style={styles.viewButton}>
                         <TouchableOpacity
-                           onPress={() => this.props.actionAddCart({id: item.id})}
+                           onPress={() => this.props.actionAddCart({ id: item.id })}
                         >
                            <Icon name="minuscircle" type="AntDesign" style={styles.iconButton} />
                         </TouchableOpacity>
                         <Text style={styles.textNumberProduct}>{item.amount}</Text>
                         <TouchableOpacity
-                           onPress={() => this.props.actionRemoveCart({id: item.id})}
+                           onPress={() => this.props.actionRemoveCart({ id: item.id })}
                         >
                            <Icon name="pluscircle" type="AntDesign" style={styles.iconButton} />
                         </TouchableOpacity>
@@ -59,7 +61,6 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'flex-start',
       marginTop: 20,
-      // paddingHorizontal: 20,
    },
    viewImage: {
       width: 100,
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-start'
    },
    iconButton: {
-      color: colorBoderButton,
+      color: colorBorderButton,
       fontSize: 20,
    },
    textNumberProduct: {

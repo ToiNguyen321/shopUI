@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Animated, TouchableOpacity, View, StyleSheet, BackHandler } from "react-native";
 import { ScrollableTab, Tab, TabHeading, Tabs } from "native-base";
 import { connect } from 'react-redux'
-import * as actions from '../../redux/Actions';
+import * as actions from '../../redux/actions';
 import { dataProducts } from "../../common/dataProduct";
 import { isObjEmpty } from "../../common/Helper";
 import Header from "../Header";
