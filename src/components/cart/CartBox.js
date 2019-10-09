@@ -12,19 +12,27 @@ class CartBox extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         item: this.props.item
+         numberItem: this.props.item.amount
       };
    }
-
+   _addCart = async (id) => {
+      this.props.actionAddCart({ id: id })
+      this.setState({
+         numberItem: this.state.numberItem+1
+      })
+   }
+   _removeCart = async (id) => {
+      this.props.actionRemoveCart({ id: id })
+      this.setState({
+         numberItem: this.state.numberItem - 1
+      })
+   }
    render() {
-      const item = this.state.item;
-      console.log(item)
-      let color = "";
-      let numberTotal = 0;
+      const item = this.props.item;
       return (
          <View>
          {
-           item.amount > 0 ?
+           this.state.numberItem > 0 ?
                <View style={styles.fill}>
                   <View style={styles.viewImage}>
                      <Image style={styles.image} source={item.image} />
@@ -35,13 +43,13 @@ class CartBox extends Component {
                      <Text numberOfLines={1} style={styles.price}>${item.price}</Text>
                      <View style={styles.viewButton}>
                         <TouchableOpacity
-                           onPress={() => this.props.actionAddCart({ id: item.id })}
+                           onPress={() => this._removeCart(item.id)}
                         >
                            <Icon name="minuscircle" type="AntDesign" style={styles.iconButton} />
                         </TouchableOpacity>
-                        <Text style={styles.textNumberProduct}>{item.amount}</Text>
+                        <Text style={styles.textNumberProduct}>{this.state.numberItem}</Text>
                         <TouchableOpacity
-                           onPress={() => this.props.actionRemoveCart({ id: item.id })}
+                           onPress={() => this._addCart(item.id)}
                         >
                            <Icon name="pluscircle" type="AntDesign" style={styles.iconButton} />
                         </TouchableOpacity>

@@ -22,15 +22,17 @@ export const cartReducer = (state = stateCart, action) => {
          
          return [...state];
       case types.REMOVE_PRODUCT_TO_CART:
-         
          state.map(item => {
             if (item.id === params.id) {
                item.amount--;
             }
          });
-         state = state.filter(item => item.amount > 0);
+         // state = state.filter(item => item.amount > 0);
          console.log(state)
          return [...state];
+      case types.REMOVE_ALL_PRODUCT_TO_CART:
+         state = [];
+         return state;
       default:
          return state;
    }

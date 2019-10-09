@@ -1,29 +1,48 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { Icon } from 'native-base';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import * as actions from '../../redux/actions';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { dataProducts, dataCarts } from '../../common/dataProduct';
  class CheckOutCart extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      totalMoney: 0,
+      dataCarts: this.props.carts,
+      data: dataCarts
     };
   }
-
+  _navigate = (navigate) => {
+    if(navigate !== 'CheckOut'){
+      this.props.actionRemoveAllCart()
+    }
+    console.log(this.props.carts)
+    this.props.navigation.navigate(navigate)
+  }
   render() {
+    let totalMoney = 0;
+      this.state.data.forEach(item => {
+         this.props.carts.forEach(i => {
+            if(item.id === i.id){
+              totalMoney += item.price * i.amount;
+            }
+         });
+      });
     const {nameNavigate, nameButton } = this.props
     let navigate = nameNavigate ? nameNavigate : 'CheckOut';
     return (
       <View style={styles.container}>
         <View style={[styles.fill]}>
             <Text style={styles.textTotal}>TOTAL</Text>
-            <Text style={styles.priceTotal}>${this.props.carts[0].amount}</Text>
+            <Text numberOfLines={1} style={styles.priceTotal}>${`${totalMoney.toFixed(2)}`}</Text>
         </View>
         <View style={[styles.fill, { alignItems: 'flex-end', }]}>
             <TouchableOpacity
                 activeOpacity={0.7}
                 style={ [styles.button, styles.buttonCart]}
-                onPress={() => this.props.navigation.navigate(navigate)}
+                onPress={() => this._navigate(navigate)}
             >
                 <Text style={styles.buttonText}>{nameButton ? nameButton : 'CHECKOUT'}</Text>
                 <Icon 
@@ -42,7 +61,7 @@ const mapStateToProps = (state, ownProps) => {
      carts: state.carts
   }
 }
-export default connect(mapStateToProps, null)(CheckOutCart)
+export default connect(mapStateToProps, actions)(CheckOutCart)
 const styles = StyleSheet.create({
     fill: {
         flex: 1,

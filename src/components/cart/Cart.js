@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions'
 import IconTab from '../../navigators/IconTab';
@@ -9,7 +9,6 @@ import CartBox from './CartBox';
 import CheckOutCart from './CheckOutCart';
 import { colorBackground } from '../../styles/Color';
 import { dataProducts, dataCarts } from '../../common/dataProduct';
-import { Button } from 'native-base';
 
 
 
@@ -24,16 +23,6 @@ class Cart extends Component {
    }
    componentDidMount() {
       let numberProduct = 0;
-      let priceTotal = 0;
-      this.state.data.forEach(item => {
-         this.state.dataCarts.forEach(i => {
-            if(item.id === i.id){
-               priceTotal += item.price * i.amount;
-               numberProduct += i.amount;
-            }
-         });
-         
-      });
       this.props.navigation.setParams({
          numberProduct: numberProduct
       });
@@ -44,7 +33,7 @@ class Cart extends Component {
       )
    })
    render() {
-      console.log(this.props)
+      // console.log(this.props)
       return (
          <View style={styles.fill}>
             <Header title={'Cart'} back={false} navigation={this.props.navigation} />
@@ -68,7 +57,7 @@ const mapStateToProps = (state, ownProps) => {
       carts: state.carts
    }
 }
-export default connect(mapStateToProps, actions)(Cart)
+export default connect(mapStateToProps, null)(Cart)
 const styles = StyleSheet.create({
    fill: {
       flex: 1,
