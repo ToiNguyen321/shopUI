@@ -9,14 +9,10 @@ export default class ProductTabTwo extends Component {
    }
 
    render() {
-      const htmlContent = `<p>🍀🍀 MÁY LÀM TÓC CHỈ TỪ #150k CHO SALON ,MAKEUP, CÁ NHÂN ...☘️☘️
-      - Chỉ bán hàng HỊN không bán hàng chợ
-      - Máy qua chọn lọc , chất lượng tốt nhất
-      - Giá cả bình dân = 3 cốc trà sữa của ae 😂😂</p><h3>Bảo hành 6 tháng 1 đổi 1 trong 30 ngày</h3>`;
       return (
          <View style={styles.container}>
             <HTMLView
-               value={htmlContent}
+               value={this.props.description}
                stylesheet={stylesHTML}
             />
          </View>

@@ -14,6 +14,7 @@ import SearchResult from '../components/search/searchResult/SearchResult';
 import Products from '../components/product/Products';
 import Cart from '../components/cart/Cart';
 import CheckOut from '../components/checkOut/CheckOut';
+import CheckOutSuccess from '../components/checkOutSuccess/CheckOutSuccess';
 
 
 
@@ -80,6 +81,9 @@ const stackProduct = createStackNavigator(
       },
       CheckOut: {
          screen: CheckOut,
+      },
+      CheckOutSuccess: {
+         screen: CheckOutSuccess
       }
    },
    {

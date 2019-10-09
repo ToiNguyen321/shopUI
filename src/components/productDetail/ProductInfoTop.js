@@ -9,16 +9,17 @@ export default class ProductInfoTop extends Component {
     }
 
     render() {
+        const { name, price, rate } = this.props;
         return (
             <View style={styles.positionTop}>
                 <Text style={styles.textName}>
-                    Faux Sued Ankle Boots
+                    {name}
                 </Text>
                 <View style={styles.viewPriceAndRate}>
-                    <Text style={styles.textPrice}>$49.99</Text>
+                    <Text style={styles.textPrice}>${price}</Text>
                     <View style={styles.viewRate}>
                         <Icon name="star" type="FontAwesome" style={styles.iconRate} />
-                        <Text style={styles.textRate}>4.9</Text>
+                        <Text style={styles.textRate}>{rate}</Text>
                     </View>
                 </View>
             </View>

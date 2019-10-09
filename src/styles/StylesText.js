@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { colorText } from './Color';
 
-export default styleText = StyleSheet.create({
+export default StylesText = StyleSheet.create({
    fonts: {
       fontFamily: "Roboto",
    },

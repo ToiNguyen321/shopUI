@@ -4,6 +4,7 @@ import Header from '../Header';
 import BestSale from './BestSale';
 import BoxProduct from './BoxProduct';
 import { ScrollView } from 'react-native-gesture-handler';
+import { dataProducts } from '../../common/dataProduct';
 
 export default class Home extends Component {
   constructor(props) {
@@ -13,18 +14,7 @@ export default class Home extends Component {
         {title: "Popular Deals"},
         {title: "Popular Clear"},
       ],
-      data: [
-        { id: 1, image: require('../../assets/images/products/Image1.png') },
-        { id: 2, image: require('../../assets/images/products/Image2.png') },
-        { id: 3, image: require('../../assets/images/products/Image3.png') },
-        { id: 4, image: require('../../assets/images/products/Image5.png') },
-        { id: 5, image: require('../../assets/images/products/Image6.png') },
-        { id: 6, image: require('../../assets/images/products/Image2.png') },
-        { id: 7, image: require('../../assets/images/products/Image4.png') },
-        { id: 8, image: require('../../assets/images/products/Image6.png') },
-        { id: 9, image: require('../../assets/images/products/Image5.png') },
-        { id: 10, image: require('../../assets/images/products/Image1.png') }
-      ],
+      data: dataProducts,
       scrollY: new Animated.Value(0)
     }
     this._onScroll = Animated.event(
@@ -41,10 +31,10 @@ export default class Home extends Component {
     
   }
   componentDidMount(){
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this._hardwareBackPress);
+    // this.backHandler = BackHandler.addEventListener('hardwareBackPress', this._hardwareBackPress);
   }
   componentWillUnmount() {
-    this.backHandler.remove()
+    // this.backHandler.remove()
   }
   _hardwareBackPress = ()=>{
     return true;
@@ -80,10 +70,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bestSale: {
-    // position: 'absolute',
-    // top: 0,
-    // left: 0,
-    // right: 0,
     height: 180,
   },
   boxProduct: {

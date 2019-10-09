@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { Icon } from 'native-base';
+import { connect } from 'react-redux'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-export default class CheckOutCart extends Component {
+ class CheckOutCart extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +17,7 @@ export default class CheckOutCart extends Component {
       <View style={styles.container}>
         <View style={[styles.fill]}>
             <Text style={styles.textTotal}>TOTAL</Text>
-            <Text style={styles.priceTotal}>${this.props.priceTotal}</Text>
+            <Text style={styles.priceTotal}>${this.props.carts[0].amount}</Text>
         </View>
         <View style={[styles.fill, { alignItems: 'flex-end', }]}>
             <TouchableOpacity
@@ -36,6 +37,12 @@ export default class CheckOutCart extends Component {
     );
   }
 }
+const mapStateToProps = (state, ownProps) => {
+  return {
+     carts: state.carts
+  }
+}
+export default connect(mapStateToProps, null)(CheckOutCart)
 const styles = StyleSheet.create({
     fill: {
         flex: 1,

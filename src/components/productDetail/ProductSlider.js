@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 
 export default class ProductSlider extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ export default class ProductSlider extends Component {
       <View style={styles.container}>
         <Image 
             style={[styles.imageProduct]}
-            source={require('../../assets/images/products/Image3.png')} />
+            source={this.props.image} />
       </View>
     );
   }

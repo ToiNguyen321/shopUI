@@ -10,7 +10,7 @@ export default class IconTab extends Component {
     const { name, badgeCount, color, size, type } = this.props;
     return (
       <View style={styles.viewIcon}>
-        <Icon name={name} style={{ color, fontSize: 25 }} type={type ? type : 'FontAwesome'} />
+        <Icon name={name} style={{ color, fontSize: 24 }} type={type ? type : 'FontAwesome'} />
         {badgeCount > 0 && (
           <View
             style={styles.viewTextIcon}
@@ -36,8 +36,9 @@ const styles = StyleSheet.create({
     top: 7,
     backgroundColor: '#FF6969',
     borderRadius: 7,
-    width: 14,
-    height: 14,
+    minWidth: 14,
+    minHeight: 14,
+    paddingHorizontal: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

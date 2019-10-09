@@ -1,6 +1,10 @@
 import React, { Component } from "react";
-import { Animated, TouchableOpacity, View, Dimensions, StyleSheet, BackHandler } from "react-native";
+import { Animated, TouchableOpacity, View, StyleSheet, BackHandler } from "react-native";
 import { ScrollableTab, Tab, TabHeading, Tabs } from "native-base";
+import { connect } from 'react-redux'
+import * as actions from '../../redux/Actions';
+import { dataProducts } from "../../common/dataProduct";
+import { isObjEmpty } from "../../common/Helper";
 import Header from "../Header";
 import ProductSlider from "./ProductSlider";
 import ProductInfoTop from "./ProductInfoTop";
@@ -9,38 +13,36 @@ import ProductTabOne from "./ProductTabOne";
 import ProductTabTwo from "./ProductTabTwo";
 import ProductTabThree from "./ProductTabThree";
 
+
+
 const IMAGE_HEIGHT = 200;
 const HEADER_HEIGHT = 0;
 const SCROLL_HEIGHT = IMAGE_HEIGHT - HEADER_HEIGHT;
-const THEME_COLOR = "rgba(255,255,255, 1)";
-const FADED_THEME_COLOR = "rgba(85,186,255, 0.8)";
 const BGR = 'rgba(0,0,0,0)';
-export default class ProductDetail extends Component {
+class ProductDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
       activeTab: 0,
-      height: 500
+      height: 500,
+      colorActive: 0,
+      idProduct: this.props.navigation.getParam('id'),
+      dataProductDetail: {}
     };
   }
 
   nScroll = new Animated.Value(0);
-  scroll = new Animated.Value(0);
-  textColor = this.scroll.interpolate({
-    inputRange: [0, SCROLL_HEIGHT / 5, SCROLL_HEIGHT],
-    outputRange: [THEME_COLOR, FADED_THEME_COLOR, "white"],
-    extrapolate: "clamp"
-  });
   tabY = this.nScroll.interpolate({
     inputRange: [0, SCROLL_HEIGHT, SCROLL_HEIGHT + 1],
     outputRange: [0, 0, 1]
   });
   heights = [300, 300, 300];
-  tabContent = (x, i) =>{
+
+  tabContent = (item, i) =>{
     
-    let render = <ProductTabOne />
+    let render = <ProductTabOne colorActive={this.state.colorActive} _changeColorActive={this._changeColorActive} />
     if(i == 1){
-      render = <ProductTabTwo />
+      render = <ProductTabTwo description={item.description} />
     }else if(i === 2){
       render = <ProductTabThree />
     }
@@ -57,17 +59,25 @@ export default class ProductDetail extends Component {
     </View>
     )
   }
+
   componentDidMount(){
-    
-    console.log('componentDidMount')
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this._hardwareBackPress);
+    //Trả về 1 giá trị thỏa mãn
+    let dataProductDetail = dataProducts.find(item => item.id === this.state.idProduct);
+    this.setState({
+      dataProductDetail
+    })
   }
-  componentWillUnmount() {
-    this.backHandler.remove()
+  _addCart = () => {
+    this.props.actionAddCart({id: this.state.idProduct, amount: 1, color: this.state.colorActive});
   }
-  _hardwareBackPress = ()=>{
-    return false;
+  _changeColorActive = (colorActive) => {
+    this.setState((prevState, prevProps) => {
+          if(prevState.colorActive !== colorActive)
+            return({ colorActive }) 
+      }
+    )
   }
+  
   isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
     const paddingToBottom = 50;
     return layoutMeasurement.height + contentOffset.y >=
@@ -76,11 +86,17 @@ export default class ProductDetail extends Component {
   };
 
   render() {
+    const { dataProductDetail } = this.state
+    console.log("data ----------------", this.props.carts)
+    
+    if(isObjEmpty(dataProductDetail))
+      return <View></View>;
+    const { name, price, rate, image } = dataProductDetail
     return (
       <View style={{ flex: 1 }}>
-        <Header title={'Welcome'} back={true} navigation={this.props.navigation} />
+        <Header  back={true} navigation={this.props.navigation} />
         <View style={{ height: 10}} />
-        <ProductInfoTop />
+        <ProductInfoTop name={name} price={price} rate={rate}/>
         <Animated.ScrollView
           scrollEventThrottle={5}
           showsVerticalScrollIndicator={false}
@@ -100,7 +116,7 @@ export default class ProductDetail extends Component {
             transform: [{ translateY: Animated.multiply(this.nScroll, 0.65) }],
             backgroundColor: BGR
           }}>
-            <ProductSlider />
+            <ProductSlider image={image} />
           </Animated.View>
           <Tabs
             locked
@@ -138,22 +154,27 @@ export default class ProductDetail extends Component {
               </Animated.View>
             }>
             <Tab heading="Product" tabStyle={{ padding: 0 }}>
-              {this.tabContent(15, 0)}
+              {this.tabContent(dataProductDetail, 0)}
             </Tab>
             <Tab heading="Details">
-              {this.tabContent(15, 1)}
+              {this.tabContent(dataProductDetail, 1)}
             </Tab>
             <Tab heading="Reviews">
-              {this.tabContent(17, 2)}
+              {this.tabContent(dataProductDetail, 2)}
             </Tab>
           </Tabs>
         </Animated.ScrollView>
-        <ProductAddCartBottom />
+        <ProductAddCartBottom _addCart={this._addCart} />
       </View>
     )
   }
 }
-
+const mapStateToProps = (state, ownProps) => {
+  return {
+      carts: state.carts
+  }
+}
+export default connect(mapStateToProps, actions)(ProductDetail);
 const styles = StyleSheet.create({
   renderTabBar: {
     zIndex: 1, 

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Text, StyleSheet, View, Image } from 'react-native'
 import { Icon } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import StylesText from '../../../styles/StylesText';
+import { colorIconCam } from '../../../styles/Color';
 
 export default class SearchResultBox extends Component {
    constructor(props) {
@@ -19,12 +21,12 @@ export default class SearchResultBox extends Component {
                   <View style={styles.viewImage}>
                      <Image source={item.image} style={styles.image} />
                   </View>
-                  <Text numberOfLines={1} style={styles.textTitle}>{item.name}</Text>
+                  <Text numberOfLines={1} style={[styles.textTitle, StylesText.text]}>{item.name}</Text>
                   <View style={styles.viewPriceRate}>
-                     <Text style={styles.textPrice}>${item.price}</Text>
+                     <Text style={[styles.textPrice, StylesText.text]}>${item.price}</Text>
                      <View style={styles.viewRate}>
                         <Icon style={styles.iconRate} name="star" type="FontAwesome" />
-                        <Text style={styles.textRate}>{item.rate}</Text>
+                        <Text style={[styles.textRate]}>{item.rate}</Text>
                      </View>
                   </View>
                </View>
@@ -55,7 +57,6 @@ const styles = StyleSheet.create({
    },
    textTitle: {
       fontSize: 15,
-      color: '#515C6F',
       paddingLeft: 20,
    },
    viewPriceRate: {
@@ -68,7 +69,6 @@ const styles = StyleSheet.create({
    textPrice: {
       fontSize: 13,
       fontWeight: 'bold',
-      color: '#515C6F'
    },
    viewRate: {
       flexDirection: 'row',
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
       width: 40,
       alignItems: 'center',
       borderRadius: 10,
-      backgroundColor: '#FF6969',
+      backgroundColor: colorIconCam,
       
    },
    iconRate: {

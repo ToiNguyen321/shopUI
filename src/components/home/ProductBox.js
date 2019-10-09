@@ -3,30 +3,30 @@ import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'rea
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 const { width, height } = Dimensions.get('window');
 export default class ProductBox extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+   constructor(props) {
+      super(props);
+      this.state = {
+      };
+   }
 
-  render() {
-      const { item, index } = this.props; 
-    return (
-      <View style={[styles.fill, styles.marginRight , styles.marginLeft ]}>
-         <TouchableWithoutFeedback
-            onPress={()=> this.props.navigate('ProductDetail')}
-         >
-            <View style={styles.viewImage}>
-               <Image style={styles.imageProduct} source={this.props.item.image} />
-            </View>
-            <View style={styles.viewInfo}>
-               <Text style={styles.textName}>Floral Dress</Text>
-               <Text style={styles.textPrice}>$49.99</Text>
-            </View>
-         </TouchableWithoutFeedback>
-      </View>
-    );
-  }
+   render() {
+      const { item, index } = this.props;
+      return (
+         <View style={[styles.fill, styles.marginRight, styles.marginLeft]}>
+            <TouchableWithoutFeedback
+               onPress={() => this.props.navigate('ProductDetail', {id: item.id, item: item})}
+            >
+               <View style={styles.viewImage}>
+                  <Image style={styles.imageProduct} source={this.props.item.image} />
+               </View>
+               <View style={styles.viewInfo}>
+                  <Text style={styles.textName}>{`${item.name}`}</Text>
+                  <Text style={styles.textPrice}>${item.price}</Text>
+               </View>
+            </TouchableWithoutFeedback>
+         </View>
+      );
+   }
 }
 
 const styles = StyleSheet.create({

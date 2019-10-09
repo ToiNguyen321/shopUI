@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import Header from '../Header';
 import { TextInput, FlatList,  TouchableOpacity } from 'react-native-gesture-handler';
 import { Icon } from 'native-base';
+import { colorIconCam } from '../../styles/Color';
+import StylesText from '../../styles/StylesText';
 
 export default class Search extends Component {
   constructor(props) {
@@ -20,7 +22,7 @@ export default class Search extends Component {
   _viewNew = (item, index) => {
     return (
       <TouchableOpacity
-        onPress={()=> this.props.navigation.navigate('ProductDetail')}
+        onPress={()=> this.props.navigation.navigate('ProductDetail', {id: item.id})}
       >
         <View style={styles.viewNew}>
           <Image 
@@ -61,7 +63,7 @@ export default class Search extends Component {
         />
         <View>
           <View style={styles.viewNewTop}>
-            <Text style={styles.textViewNew}>RECENTLY VIEWED</Text>
+            <Text style={[styles.textViewNew, StylesText.text]}>RECENTLY VIEWED</Text>
             <TouchableOpacity>
               <Text style={styles.textClearViewNew}>CLEAR</Text>
             </TouchableOpacity>
@@ -76,7 +78,7 @@ export default class Search extends Component {
         </View>
         <View>
           <View style={styles.viewNewTop}>
-            <Text style={styles.textViewNew}>RECOMMENDED</Text>
+            <Text style={[styles.textViewNew, StylesText.text]}>RECOMMENDED</Text>
             <TouchableOpacity>
               <Text style={styles.textClearViewNew}>REFRESH</Text>
             </TouchableOpacity>
@@ -115,7 +117,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   textClearViewNew: {
-    color: '#FF6969',
+    color: colorIconCam,
     fontSize: 12,
     marginTop: 25,
     marginBottom: 15,
@@ -139,7 +141,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   textViewNewRight: {
-    color: '#515C6F',
     fontSize: 15,
     paddingRight: 10,
   },
@@ -148,7 +149,6 @@ const styles = StyleSheet.create({
   },
   textRecommended: {
     fontSize: 14,
-    color: '#515C6F',
     paddingHorizontal: 10,
     paddingVertical: 7,
     marginRight: 10,

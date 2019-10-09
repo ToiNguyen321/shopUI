@@ -11,6 +11,7 @@ export default class ProductAddCartBottom extends Component {
   }
 
   render() {
+      console.log('xxxx')
     return (
       <View style={styles.container}>
         <View style={[styles.fill]}>
@@ -30,6 +31,7 @@ export default class ProductAddCartBottom extends Component {
             <TouchableOpacity
                 activeOpacity={0.7}
                 style={ [styles.button, styles.buttonCart]}
+                onPress={ ()=>this.props._addCart() }
             >
                 <Text style={styles.buttonText}>ADD TO CART</Text>
                 <Icon 
@@ -44,6 +46,7 @@ export default class ProductAddCartBottom extends Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
     fill: {
         flex: 1,

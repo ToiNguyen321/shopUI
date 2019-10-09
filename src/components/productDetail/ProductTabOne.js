@@ -2,44 +2,25 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { FlatList, TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { Icon } from 'native-base';
+import { dataColor, dataSize } from '../../common/dataProduct';
 const { width, height } = Dimensions.get('window');
-
 export default class ProductTabOne extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         colorActive: 0,
          sizeActive: 0,
+         dataColor: dataColor,
          data: [
             {
                title: "Select color",
-               data: [
-                  { id: 1, color: 'red' },
-                  { id: 2, color: 'black' },
-                  { id: 3, color: 'white' },
-                  { id: 3, color: 'blue' },
-                  { id: 3, color: 'yellow' },
-                  { id: 3, color: 'white' },
-                  { id: 2, color: 'black' },
-               ],
+               data: dataColor,
             },
             {
                title: "Select size (US)",
-               data: [
-                  { id: 1, size: 39 },
-                  { id: 2, size: 40 },
-                  { id: 3, size: 41 },
-               ]
+               data: dataSize
             }
          ]
       };
-   }
-   _setColorActive = (colorActive) => {
-      this.setState((prevState, prevProps) => {
-            if(prevState.colorActive !== colorActive)
-               return({ colorActive }) 
-         }
-      )
    }
    _setSizeActive = (sizeActive) => {
       this.setState((prevState, prevProps) => {
@@ -51,7 +32,7 @@ export default class ProductTabOne extends Component {
    buttonColor = (item,index) => (
       <TouchableOpacity
          key={`${index}`}
-         onPress={this._setColorActive.bind(this, index)}
+         onPress={() => this.props._changeColorActive(index)}
       >
          <View 
             style={[
@@ -61,7 +42,7 @@ export default class ProductTabOne extends Component {
             ]}
          >
             {
-               this.state.colorActive === index ?
+               this.props.colorActive === index ?
                <Icon
                   style={{ color: item.color === 'white' ? 'black' : 'white' }} 
                   name="check" 
