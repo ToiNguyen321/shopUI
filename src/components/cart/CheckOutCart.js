@@ -16,7 +16,7 @@ import { dataProducts, dataCarts } from '../../common/dataProduct';
   }
   _navigate = (navigate) => {
     if(navigate !== 'CheckOut'){
-      this.props.actionRemoveAllCart()
+      this.props.actionRemoveCart()
     }
     console.log(this.props.carts)
     this.props.navigation.navigate(navigate)

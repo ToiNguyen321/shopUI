@@ -22,14 +22,14 @@ class Cart extends Component {
       };
    }
    componentDidMount() {
-      let numberProduct = 0;
-      this.props.navigation.setParams({
-         numberProduct: numberProduct
-      });
+      // let numberProduct = 3;
+      // this.props.navigation.setParams({
+      //    numberProduct: numberProduct
+      // });
    }
    static navigationOptions = ({ navigation }) => ({
       tabBarIcon: ({ tintColor }) => (
-         <IconTab badgeCount={navigation.getParam('numberProduct', 0)} name={'shopping-cart'} size={25} type={'Feather'} color={tintColor} />
+         <IconTab badgeCount={navigation.getParam('numberProduct', 1)} name={'shopping-cart'} size={25} type={'Feather'} color={tintColor} />
       )
    })
    render() {
@@ -41,12 +41,10 @@ class Cart extends Component {
                <FlatList
                   contentContainerStyle={styles.flatList}
                   data={this.props.carts}
-                  keyExtractor={(item, index) => `${index}`}
+                  keyExtractor={(item, index) => `${item.id}`}
                   renderItem={({ item }) => <CartBox item={item} />}
                />
-               
             </View>
-            
             <CheckOutCart navigation={this.props.navigation} />
          </View>
       );

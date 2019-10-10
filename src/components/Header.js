@@ -56,7 +56,7 @@ export default class Header extends Component {
                   </View>
                :
                   <View style={[ styles.viewLeft ]}>
-                     <TouchableWithoutFeedback
+                     {/* <TouchableWithoutFeedback
                         onPress={()=>alert('Cart')}
                         style={styles.buttonCart}
                      >
@@ -66,7 +66,7 @@ export default class Header extends Component {
                         <Icon 
                            name={'shopping-cart'} type={'Feather'}
                            style={[ styles.iconUser, styles.iconClose ]} />
-                     </TouchableWithoutFeedback>
+                     </TouchableWithoutFeedback> */}
                      <TouchableWithoutFeedback>
                         <Image 
                            style={[ styles.imageUser ]}

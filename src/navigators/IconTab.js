@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Icon } from "native-base";
+import { connect } from 'react-redux'
 
-export default class IconTab extends Component {
+class IconTab extends Component {
   constructor(props) {
     super(props);
   }
@@ -11,19 +12,25 @@ export default class IconTab extends Component {
     return (
       <View style={styles.viewIcon}>
         <Icon name={name} style={{ color, fontSize: 24 }} type={type ? type : 'FontAwesome'} />
-        {badgeCount > 0 && (
+        {(name === 'shopping-cart') && this.props.carts.length > 0 ? (
           <View
             style={styles.viewTextIcon}
           >
             <Text style={styles.text}>
-              {badgeCount}
+              {this.props.carts.length}
             </Text>
           </View>
-        )}
+        ): null}
       </View>
     );
   }
 }
+const mapStateToProps = (state, ownProps) => {
+  return {
+    carts : state.carts
+  }
+}
+export default connect(mapStateToProps, null)(IconTab)
 const styles = StyleSheet.create({
   viewIcon: {
     width: 24,

@@ -4,7 +4,6 @@ import { dataCarts } from '../common/dataProduct';
 stateCart = dataCarts;
 export const cartReducer = (state = stateCart, action) => {
    let {type ,params} = action;
-   console.log(type)
    switch (type) {
       case types.ADD_PRODUCT_TO_CART:
          let product = { id: params.id, amount: params.amount, color: params.color };
@@ -21,18 +20,26 @@ export const cartReducer = (state = stateCart, action) => {
          }
          
          return [...state];
-      case types.REMOVE_PRODUCT_TO_CART:
+      case types.MINUS_PRODUCT_TO_CART:
          state.map(item => {
             if (item.id === params.id) {
                item.amount--;
             }
          });
-         // state = state.filter(item => item.amount > 0);
-         console.log(state)
+         state = state.filter(item => item.amount > 0);
          return [...state];
-      case types.REMOVE_ALL_PRODUCT_TO_CART:
-         state = [];
-         return state;
+      case types.REMOVE_PRODUCT_TO_CART:
+         if(params.id === 'all'){
+            state = [];
+         }else{
+            state.map(item => {
+               if (item.id === params.id) {
+                  item.amount = 0;
+               }
+            });
+         }
+         state = state.filter(item => item.amount > 0);
+         return [...state];
       default:
          return state;
    }

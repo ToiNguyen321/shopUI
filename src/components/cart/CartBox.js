@@ -21,8 +21,8 @@ class CartBox extends Component {
          numberItem: this.state.numberItem+1
       })
    }
-   _removeCart = async (id) => {
-      this.props.actionRemoveCart({ id: id })
+   _minusCart = async (id) => {
+      this.props.actionMinusCart({ id: id })
       this.setState({
          numberItem: this.state.numberItem - 1
       })
@@ -43,7 +43,7 @@ class CartBox extends Component {
                      <Text numberOfLines={1} style={styles.price}>${item.price}</Text>
                      <View style={styles.viewButton}>
                         <TouchableOpacity
-                           onPress={() => this._removeCart(item.id)}
+                           onPress={() => this._minusCart(item.id)}
                         >
                            <Icon name="minuscircle" type="AntDesign" style={styles.iconButton} />
                         </TouchableOpacity>
