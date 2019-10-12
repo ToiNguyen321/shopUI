@@ -87,7 +87,7 @@ const stackProduct = createStackNavigator(
       }
    },
    {
-      initialRouteName: 'Home',
+      initialRouteName: 'OpenApp',
       headerMode: 'none',
       mode: 'modal',
       transitionConfig,

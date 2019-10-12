@@ -29,7 +29,7 @@ export default class BoxTagCode extends Component {
    render() {
       const height = this.state.hideTextInputTag.interpolate({
          inputRange: [0, 1],
-         outputRange: [0, 40],
+         outputRange: [0, 50],
          extrapolate: 'clamp'
        })
       return (

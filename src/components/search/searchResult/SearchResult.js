@@ -4,22 +4,13 @@ import Header from '../../Header'
 import { FlatList } from 'react-native-gesture-handler'
 import SearchResultBox from './SearchResultBox'
 import { Icon, Input, Item } from 'native-base'
+import { dataProducts } from '../../../common/dataProduct'
 
 export default class SearchResult extends Component {
    constructor(props){
       super(props)
       this.state={
-         data: [
-            { id: 1, name: "V Neck Shirt - Pink", price: 11.99, rate: 4.4, image: require('../../../assets/images/products/Image1.png') },
-            { id: 2, name: "V Neck Shirt - Pink", price: 11.99, rate: 4.7, image: require('../../../assets/images/products/Image2.png') },
-            { id: 3, name: "V Neck Shirt - Pink", price: 11.99, rate: 4.9, image: require('../../../assets/images/products/Image3.png') },
-            { id: 4, name: "V Neck Shirt - Pink", price: 11.99, rate: 4.0, image: require('../../../assets/images/products/Image5.png') },
-            { id: 5, name: "V Neck Shirt - Pink", price: 11.99, rate: 4.8, image: require('../../../assets/images/products/Image6.png') },
-            { id: 6, name: "V Neck Shirt - Pink", price: 11.99, rate: 4, image: require('../../../assets/images/products/Image2.png') },
-            { id: 7, name: "V Neck Shirt - Pink", price: 11.99, rate: 4.4, image: require('../../../assets/images/products/Image4.png') },            { id: 8, name: "V Neck Shirt - Pink", price: 11.99, rate: 4, image: require('../../../assets/images/products/Image6.png') },
-            { id: 9, name: "V Neck Shirt - Pink", price: 11.99, rate: 4.5, image: require('../../../assets/images/products/Image5.png') },
-            { id: 10, name: "V Neck Shirt - Pink", price: 11.99, rate: 4.4, image: require('../../../assets/images/products/Image1.png') }
-          ],
+         data: dataProducts,
           textSearch: "Shirts"
       }
    }
@@ -50,7 +41,7 @@ export default class SearchResult extends Component {
                   onEndReached={() => alert('onEndReached')}
                   data={this.state.data}
                   keyExtractor={(item, index) => `${index}`}
-                  renderItem={({item}) => <SearchResultBox item={item} />}
+                  renderItem={({item}) => <SearchResultBox item={item} navigation={this.props.navigation} />}
                />
             </View>
          </View>

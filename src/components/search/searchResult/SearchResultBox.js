@@ -15,6 +15,7 @@ export default class SearchResultBox extends Component {
          
             <View style={styles.fill}>
                <TouchableOpacity
+                  onPress={() => this.props.navigation.navigate('ProductDetail', {id: item.id, item: item})}
                   activeOpacity={0.7}
                >
                <View style={styles.container}>
