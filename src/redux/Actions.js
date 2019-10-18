@@ -14,3 +14,10 @@ export const actionRemoveCart = (params = '') => ({
       id: params!=='' ? params.id : 'all'
    }
 })
+
+export const actionChangeShowPopup = (params = '') => ({
+   type: types.REMOVE_PRODUCT_TO_CART,
+   params: {
+      id: params!=='' ? params.id : 'all'
+   }
+})

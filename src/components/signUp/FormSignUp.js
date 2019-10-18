@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, Dimensions, TouchableOpacity } from 'react-native';
 import StylesText from '../../styles/StylesText';
 const { width, height } = Dimensions.get('window');
-export default class FormLogin extends Component {
+export default class FormSignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
        name: "",
-       pass: ""
+       pass: "",
+       pass2: ""
     };
   }
   _name = (name) => {
@@ -20,12 +21,10 @@ export default class FormLogin extends Component {
          pass
       })
    }
-
-   _login = () => {
-      let { name, pass } = this.state;
-      if(name === 'admin' && pass === 'admin'){
-         
-      }
+   _pass2 = (pass2) => {
+       this.setState({
+           pass2
+       })
    }
   render() {
     return (
@@ -40,25 +39,24 @@ export default class FormLogin extends Component {
             onChangeText={(val) => this._pass} 
             style={[styles.textInput, styles.layout]}
          />
+         <TextInput 
+            placeholder="Nhập lại mật khẩu"
+            onChangeText={(val) => this._pass2} 
+            style={[styles.textInput, styles.layout]}
+         />
          <TouchableOpacity
-            onPress={() => this._login}
+            onPress={() => this.props.navigation.navigate('Home')}
             activeOpacity={0.6}
             style={[styles.layout, styles.buttonLogin]}
          >
-            <Text style={styles.textButtonLogin}>Đăng nhập</Text>
+            <Text style={styles.textButtonLogin}>Đăng ký</Text>
          </TouchableOpacity>
          <TouchableOpacity
+            onPress={()=>this.props.navigation.navigate('Login')}
             activeOpacity={0.6}
             style={[styles.layout, styles.buttonNoBg]}
          >
-            <Text style={[styles.textButtonLogin, StylesText.fonts, { textDecorationLine: 'underline' }]}>Quên mật khẩu?</Text>
-         </TouchableOpacity>
-         <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('SignUp')}
-            activeOpacity={0.6}
-            style={[styles.layout, styles.buttonNoBg, ]}
-         >
-            <Text style={[styles.textButtonLogin, StylesText.fonts]}>Đăng ký tài khoản?</Text>
+            <Text style={[styles.textButtonLogin, StylesText.fonts, { textDecorationLine: 'underline' }]}>Đã có tài khoản! Đăng nhập!</Text>
          </TouchableOpacity>
       </View>
     );

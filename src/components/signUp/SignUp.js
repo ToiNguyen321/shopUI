@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
-import FormLogin from './FormLogin';
+import FormSignUp from './FormSignUp';
 import styleText from '../../styles/StylesText';
 const { width, height } = Dimensions.get('window');
 
-export default class Login extends Component {
+export default class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +24,7 @@ export default class Login extends Component {
         >
            <Text style={[styles.textTitle, styleText.fonts]}>Enter Premium Sound</Text>
            <View style={[styles.viewLogin, styleText.fonts]}>
-               <FormLogin navigation={this.props.navigation} />
+               <FormSignUp navigation={this.props.navigation} />
            </View>
         </View>
       </View>

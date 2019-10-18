@@ -31,12 +31,13 @@ export default class OpenApp extends Component {
                      onPress={() => this.props.navigation.navigate('Login')}
                      style={[ styles.layoutButton, styles.buttonLogin ]}
                   >
-                     <Text style={[styleText.fonts, styles.textButton ]}>Login</Text>
+                     <Text style={[styleText.fonts, styles.textButton ]}>Đăng nhập</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
+                     onPress={() => this.props.navigation.navigate('SignUp')}
                      style={[ styles.layoutButton, styles.buttonSignUp ]}
                   >
-                     <Text style={[styleText.fonts, styles.textButton ]}>Sign Up</Text>
+                     <Text style={[styleText.fonts, styles.textButton ]}>Đăng ký</Text>
                   </TouchableOpacity>
                </View>
             </View>

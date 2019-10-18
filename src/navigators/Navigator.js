@@ -11,10 +11,10 @@ import Home from '../components/home/Home';
 import Search from '../components/search/Search';
 import ProductDetail from '../components/productDetail/ProductDetail';
 import SearchResult from '../components/search/searchResult/SearchResult';
-import Products from '../components/product/Products';
 import Cart from '../components/cart/Cart';
 import CheckOut from '../components/checkOut/CheckOut';
 import CheckOutSuccess from '../components/checkOutSuccess/CheckOutSuccess';
+import SignUp from '../components/signUp/SignUp';
 
 
 
@@ -34,7 +34,6 @@ const stackHome = createStackNavigator(
       }
    }
 )
-
 const bottomTabNavigator = createBottomTabNavigator({
    Home: {
       screen: stackHome
@@ -69,6 +68,9 @@ const stackProduct = createStackNavigator(
       },
       Login: {
          screen: Login
+      },
+      SignUp: {
+         screen: SignUp
       },
       Home: {
          screen: bottomTabNavigator
