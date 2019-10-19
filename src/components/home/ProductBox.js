@@ -17,11 +17,11 @@ export default class ProductBox extends Component {
                onPress={() => this.props.navigate('ProductDetail', {id: item.id, item: item})}
             >
                <View style={styles.viewImage}>
-                  <Image style={styles.imageProduct} source={this.props.item.image} />
+                  <Image style={styles.imageProduct} source={{uri: this.props.item.image}} />
                </View>
                <View style={styles.viewInfo}>
                   <Text style={styles.textName}>{`${item.name}`}</Text>
-                  <Text style={styles.textPrice}>${item.price}</Text>
+                  <Text style={styles.textPrice}>{item.price}K</Text>
                </View>
             </TouchableWithoutFeedback>
          </View>

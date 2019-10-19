@@ -22,10 +22,12 @@ export default class FormLogin extends Component {
    }
 
    _login = () => {
-      let { name, pass } = this.state;
-      if(name === 'admin' && pass === 'admin'){
+      // let { name, pass } = this.state;
+      // if(name === 'admin' && pass === 'admin'){
          
-      }
+      // }
+      alert("xxx")
+      this.props.navigation.navigate('Home')
    }
   render() {
     return (
@@ -41,7 +43,7 @@ export default class FormLogin extends Component {
             style={[styles.textInput, styles.layout]}
          />
          <TouchableOpacity
-            onPress={() => this._login}
+            onPress={() => this._login()}
             activeOpacity={0.6}
             style={[styles.layout, styles.buttonLogin]}
          >

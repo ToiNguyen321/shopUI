@@ -3,8 +3,6 @@ import {Provider} from 'react-redux';
 import { View, Dimensions } from 'react-native';
 import Navigator from './navigators/Navigator'
 import store from './redux/Store';
-import Popup from './components/popup/Popup';
-const { width, height } = Dimensions.get('window');
 export default class App extends Component {
 
   render() {

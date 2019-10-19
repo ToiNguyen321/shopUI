@@ -5,6 +5,7 @@ import BestSale from './BestSale';
 import BoxProduct from './BoxProduct';
 import { ScrollView } from 'react-native-gesture-handler';
 import { dataProducts } from '../../common/dataProduct';
+import { fetchPost } from '../../common/Api';
 
 export default class Home extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ export default class Home extends Component {
         {title: "Popular Deals"},
         {title: "Popular Clear"},
       ],
-      data: dataProducts,
+      dataProducts: dataProducts,
       scrollY: new Animated.Value(0)
     }
     this._onScroll = Animated.event(
@@ -31,15 +32,19 @@ export default class Home extends Component {
     
   }
   componentDidMount(){
-    // this.backHandler = BackHandler.addEventListener('hardwareBackPress', this._hardwareBackPress);
-  }
-  componentWillUnmount() {
-    // this.backHandler.remove()
+    let url = 'Api'
+    let data = {cmd: 3};
+    fetchPost(url, data, (dataProducts) => {
+      this.setState({
+        dataProducts
+      })
+    })
   }
   _hardwareBackPress = ()=>{
     return true;
   }
   render() {
+    console.log(this.state.dataProducts)
     const translateY = this.state.scrollY.interpolate({
       inputRange: [0, 200],
       outputRange: [0, -200],
