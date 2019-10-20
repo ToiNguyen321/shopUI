@@ -22,11 +22,11 @@ export default class FormLogin extends Component {
    }
 
    _login = () => {
-      // let { name, pass } = this.state;
-      // if(name === 'admin' && pass === 'admin'){
+      let { name, pass } = this.state;
+      if(name === 'admin' && pass === 'admin'){
          
-      // }
-      alert("xxx")
+      }
+      // alert("xxx")
       this.props.navigation.navigate('Home')
    }
   render() {

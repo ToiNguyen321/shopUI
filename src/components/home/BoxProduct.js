@@ -8,9 +8,21 @@ export default class BoxProduct extends Component {
    constructor(props) {
       super(props);
       this.state = {
+         data: this.props.data
       };
    }
-
+   componentDidUpdate(prevProps){ 
+      if(this.props.data !== prevProps.data){
+        this.setState({
+           data: this.props.data
+        })
+      }
+   }
+   // shouldComponentUpdate(nextProps, nextState){
+   //    if(nextProps.data !== this.props.data){
+   //       return true
+   //    }
+   // }
    render() {
       return (
          <View style={styles.container}>
@@ -26,10 +38,10 @@ export default class BoxProduct extends Component {
                scrollEventThrottle={1}
                onScroll={this.props.onScroll}
                style={styles.flatList}
-               data={this.props.data}
-               renderItem={({item, index}) => <ProductBox navigate={this.props.navigate} item={item} index={index} />}
-               keyExtractor={item => `${item.id}`}
-               onEndReached={()=>alert('xxx')}
+               data={this.state.data}
+               renderItem={({item, index}) => <ProductBox navigate={this.props.navigate} item={item} index={item.id} />}
+               keyExtractor={(item, index) => `${index}`}
+               // onEndReached={()=>alert('xxx')}
                onEndReachedThreshold={0.2}
             />
          </View>

@@ -1,7 +1,7 @@
 import * as types from './Types';
 import { dataCarts } from '../common/dataProduct';
 
-stateCart = dataCarts;
+const stateCart = dataCarts;
 export const cartReducer = (state = stateCart, action) => {
    let {type ,params} = action;
    switch (type) {
@@ -44,3 +44,31 @@ export const cartReducer = (state = stateCart, action) => {
          return state;
    }
 }
+
+
+const stateProducts = {
+   isFetching: false,
+   data: [],
+   error: false
+}
+
+export const productsReducer =  (state = stateProducts, action) => {
+  switch (action.type) {
+   case types.FETCH_DATA_PRODUCTS:
+      return { ...state, isFetching: true };
+   case types.FETCH_DATA_PRODUCTS_SUCCESS:
+      return {
+         ...state,
+         isFetching: false,
+         data: state.data.concat(action.data.data)
+      }
+   case types.FETCH_DATA_PRODUCTS_FAIL:
+      return {
+         ...state,
+         isFetching: false,
+         error: true
+      }
+   default:
+      return state
+  }
+};

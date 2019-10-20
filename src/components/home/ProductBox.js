@@ -10,6 +10,7 @@ export default class ProductBox extends Component {
    }
 
    render() {
+      console.log(`http://192.168.1.34/ShopAny/public/image/product/${this.props.item.image}`)
       const { item, index } = this.props;
       return (
          <View style={[styles.fill, styles.marginRight, styles.marginLeft]}>
@@ -17,10 +18,10 @@ export default class ProductBox extends Component {
                onPress={() => this.props.navigate('ProductDetail', {id: item.id, item: item})}
             >
                <View style={styles.viewImage}>
-                  <Image style={styles.imageProduct} source={{uri: this.props.item.image}} />
+                  <Image style={styles.imageProduct} blurRadius={0.2} source={{uri: `http://192.168.1.34/ShopAny/public/image/product/${this.props.item.image}`}} />
                </View>
                <View style={styles.viewInfo}>
-                  <Text style={styles.textName}>{`${item.name}`}</Text>
+                  <Text numberOfLines={1} style={styles.textName}>{`${item.name}`}</Text>
                   <Text style={styles.textPrice}>{item.price}K</Text>
                </View>
             </TouchableWithoutFeedback>
@@ -55,8 +56,12 @@ const styles = StyleSheet.create({
       alignItems: 'center',
    },
    imageProduct: {
-      maxWidth: '90%',
-      maxHeight: 90
+      width: '100%',
+      height: '100%',
+      
+      borderTopLeftRadius: 7,
+      borderTopRightRadius: 7,
+      
    },
    viewInfo: {
       alignItems: 'flex-start',
