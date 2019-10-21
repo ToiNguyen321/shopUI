@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Animated, BackHandler } from 'react-native';
+import { View, Text, StyleSheet, Animated, ActivityIndicator } from 'react-native';
 import * as actions from '../../redux/actions';
 import { connect } from 'react-redux';
 import Header from '../Header';
@@ -34,39 +34,32 @@ class Home extends Component {
 
   }
   componentDidMount() {
-    let url = 'Api';
-    let data = { cmd: 3 };
-    this.props.actionFetchDataProducts()
-    // setTimeout(() => this.props.actionFetchDataProducts(), 4000 )
-    // fetchPost(url, data, (dataProducts) => {
-    //   console.log(dataProducts)
-    //   this.setState({
-    //     dataProducts
-    //   })
-    // })
-    //   console.log(url)
-    //   fetch(`http://192.168.1.34/ShopAny/api/Api?data=` + `${JSON.stringify(data)}`)
-    //  .then(res => res.json())
-    //  .then(resJson => this.setState({
-    //     dataListCategories: this.state.dataListCategories,
-    //     dataProducts: resJson.data
-    //   }))
-    //  .catch(ex => console.log(ex))
+    this.props.actionFetchDataProducts();
   }
   _hardwareBackPress = () => {
     return true;
   }
   renderBox = () => {
-    return (
-      <Animated.View key={`${1}`} style={[styles.boxProduct]}>
-        <BoxProduct navigate={this.props.navigation.navigate} title={"xxx"} data={this.props.dataProducts.data} onScroll={this._onScroll} />
-      </Animated.View>
-    )
+    return this.props.dataProducts.data.map(item => {
+      if(item.products.length > 0)
+      return(
+        <Animated.View key={`${item.id}`} style={[styles.boxProduct]}>
+        <BoxProduct 
+          key={`${item.id}`}
+          navigate={this.props.navigation.navigate} 
+          title={item.name} 
+          dataProducts={item.products} 
+          onScroll={this._onScroll}
+          idCatalog={item.id}
+        />
+      </Animated.View>)
+    })
+
   }
     
 
   render() {
-    console.log(this.props.dataProducts)
+    // console.log(this.props.dataProducts)
     const translateY = this.state.scrollY.interpolate({
       inputRange: [0, 200],
       outputRange: [0, -200],
@@ -80,21 +73,12 @@ class Home extends Component {
             <BestSale />
           </Animated.View>
           {
-            this.props.dataProducts.isFetching && <Text>...loading</Text>
+            this.props.dataProducts.data.length > 0 ?
+              this.renderBox()
+            : <View style={styles.container}>
+                <ActivityIndicator size="large" color="#0000ff" />
+              </View>
           }
-          {
-            this.props.dataProducts.data.length ?
-            this.renderBox()
-            : null
-          }
-          {/* {
-            this.state.dataListCategories.map((item,index) => */}
-          {
-
-          }
-
-          {/* )
-          } */}
         </ScrollView>
       </View>
     );

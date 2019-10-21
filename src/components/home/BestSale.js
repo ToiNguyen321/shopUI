@@ -13,20 +13,20 @@ export default class BestSale extends Component {
     }
     _animatedLoop(){
         this.translateX.setValue(0)
-        Animated.loop(
-            Animated.sequence([
-                Animated.delay(2000),
-                Animated.timing(
-                    this.translateX,
+        // Animated.loop(
+        //     Animated.sequence([
+        //         Animated.delay(2000),
+        //         Animated.timing(
+        //             this.translateX,
                     
-                    {
-                        toValue: 1,
-                        duration: 1000,
-                        // easing: Easing.back()
-                    }
-                )
-            ])
-        ).start();
+        //             {
+        //                 toValue: 1,
+        //                 duration: 1000,
+        //                 // easing: Easing.back()
+        //             }
+        //         )
+        //     ])
+        // ).start();
     }
     render() {
         const translateX = this.translateX.interpolate({

@@ -1,4 +1,5 @@
-const API = 'http://192.168.1.34/ShopAny/api/';
+import { API } from "../config"
+
 
 export const fetchPost = async (URL = '', data, call_back) => {
    console.log(API + URL)

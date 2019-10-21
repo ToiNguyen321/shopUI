@@ -10,15 +10,15 @@ export default class ProductBox extends Component {
    }
 
    render() {
-      console.log(`http://192.168.1.34/ShopAny/public/image/product/${this.props.item.image}`)
-      const { item, index } = this.props;
+      // console.log(`http://192.168.1.34/ShopAny/public/image/product/${this.props.item.image}`)
+      const { item, key } = this.props;
       return (
          <View style={[styles.fill, styles.marginRight, styles.marginLeft]}>
             <TouchableWithoutFeedback
                onPress={() => this.props.navigate('ProductDetail', {id: item.id, item: item})}
             >
                <View style={styles.viewImage}>
-                  <Image style={styles.imageProduct} blurRadius={0.2} source={{uri: `http://192.168.1.34/ShopAny/public/image/product/${this.props.item.image}`}} />
+                  <Image style={styles.imageProduct} blurRadius={0.2} source={{uri: `http://192.168.1.111/ShopAny/public/image/product/thump/thump_${this.props.item.image}`}} />
                </View>
                <View style={styles.viewInfo}>
                   <Text numberOfLines={1} style={styles.textName}>{`${item.name}`}</Text>
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
    fill: {
       width: (width) / 3,
       marginRight: 20,
-      height: 145,
+      height: 160,
       backgroundColor: '#FFF',
       borderColor: '#7C6BD7',
       borderWidth: 0.0,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
    },
    viewImage: {
       width: '100%',
-      height: 100,
+      height: 110,
       justifyContent: 'center',
       alignItems: 'center',
    },
@@ -65,9 +65,10 @@ const styles = StyleSheet.create({
    },
    viewInfo: {
       alignItems: 'flex-start',
-      marginLeft: 10,
+      marginHorizontal: 8,
    },
    textName: {
+      marginTop: 5,
       color: '#1E2D3E',
       fontSize: 12,
    },

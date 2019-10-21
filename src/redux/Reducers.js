@@ -60,7 +60,7 @@ export const productsReducer =  (state = stateProducts, action) => {
       return {
          ...state,
          isFetching: false,
-         data: state.data.concat(action.data.data)
+         data: action.data.data
       }
    case types.FETCH_DATA_PRODUCTS_FAIL:
       return {

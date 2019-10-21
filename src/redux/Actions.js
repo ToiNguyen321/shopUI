@@ -1,6 +1,6 @@
 import * as types from './Types';
 import { fetchDataGet } from '../common/Api';
-//params = {id, amount, color} 
+import { CMD } from '../config';
 export const actionAddCart = (params) => ({
    type: types.ADD_PRODUCT_TO_CART,
    params
@@ -34,7 +34,10 @@ const getDataFail = () => ({
    type: types.FETCH_DATA_PRODUCTS_FAIL,
 })
 export const actionFetchDataProducts = () => {
-   let data = {cmd: 3}
+   let data = {
+      cmd: CMD.GET_LIST_PRODUCT, 
+      page: 1
+   }
    let url = `Api?data=${JSON.stringify(data)}`;
    return (dispatch)  => {
       dispatch(getData())
@@ -43,7 +46,10 @@ export const actionFetchDataProducts = () => {
          .then(resJ => {
             dispatch(getDataSuccess(resJ))
          })
-         .catch(ex => console.error(ex))
+         .catch(ex => {
+            console.error(ex);
+            dispatch(getDataFail())
+         })
 
    }
 }

@@ -1,29 +1,57 @@
 import React, { Component } from 'react';
 import { StyleSheet, FlatList, View, Text } from 'react-native';
 import ProductBox from './ProductBox';
+import { connect } from 'react-redux'
+import * as actions from '../../redux/actions'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Icon } from 'native-base';
+import { API, CMD } from '../../config';
 
-export default class BoxProduct extends Component {
+
+class BoxProduct extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         data: this.props.data
+         dataProducts: this.props.dataProducts,
+         page: 1,
+         isFetch: false,
+         isEnd: this.props.dataProducts.length >= 10 ? false : true,
       };
    }
-   componentDidUpdate(prevProps){ 
-      if(this.props.data !== prevProps.data){
-        this.setState({
-           data: this.props.data
-        })
+   _onEndReached = async () => {
+      let { isEnd, isFetch, page } = this.state;
+      if(isEnd === false){
+         let data = {
+            cmd: CMD.GET_LIST_PRODUCT,
+            idCatalog: this.props.idCatalog,
+            page: page + 1
+         }
+         let url = `Api?data=${JSON.stringify(data)}`;
+         fetch(API + url)
+         .then(res=>res.json())
+         .then(resJ => {
+            if(resJ.status === 1){
+               let resCatalog = resJ.data[0];
+               if(typeof(resCatalog.products) !== 'undefined' && resCatalog.products.length > 0){
+                  this.setState({
+                     dataProducts: this.state.dataProducts.concat(resCatalog.products),
+                     page: page + 1
+                  })
+               }else{
+                  this.setState({
+                     isEnd: true
+                  })
+               }
+            }
+         })
+         .catch(ex => {
+            console.error(ex);
+         })
+      }else{
+         console.log("Hết sản phẩm")
       }
    }
-   // shouldComponentUpdate(nextProps, nextState){
-   //    if(nextProps.data !== this.props.data){
-   //       return true
-   //    }
-   // }
    render() {
+      // console.log(this.props.dataProducts.length, this.state.isEnd)
       return (
          <View style={styles.container}>
             <View style={styles.viewTop}>
@@ -38,16 +66,17 @@ export default class BoxProduct extends Component {
                scrollEventThrottle={1}
                onScroll={this.props.onScroll}
                style={styles.flatList}
-               data={this.state.data}
-               renderItem={({item, index}) => <ProductBox navigate={this.props.navigate} item={item} index={item.id} />}
+               data={this.state.dataProducts}
+               renderItem={({item, index}) => <ProductBox navigate={this.props.navigate} item={item} key={item.id} />}
                keyExtractor={(item, index) => `${index}`}
-               // onEndReached={()=>alert('xxx')}
+               onEndReached={this._onEndReached.bind(this)}
                onEndReachedThreshold={0.2}
             />
          </View>
       );
    }
 }
+export default connect(null, actions)(BoxProduct)
 const styles = StyleSheet.create({
    container: {
       paddingBottom: 20,
