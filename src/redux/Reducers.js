@@ -1,12 +1,11 @@
 import * as types from './Types';
-import { dataCarts } from '../common/dataProduct';
 
-const stateCart = dataCarts;
+const stateCart = [];
 export const cartReducer = (state = stateCart, action) => {
    let {type ,params} = action;
    switch (type) {
       case types.ADD_PRODUCT_TO_CART:
-         let product = { id: params.id, amount: params.amount, color: params.color };
+         let product = { id: params.id, amount: params.amount, color: params.color, info: params.info };
          let isProduct = false;
          state.map(item => {
             if (item.id === params.id) {

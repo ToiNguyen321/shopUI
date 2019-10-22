@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
-
+import { View, StyleSheet, Image, Dimensions } from 'react-native';
+const { width, height } = Dimensions.get('window')
 export default class ProductSlider extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +13,7 @@ export default class ProductSlider extends Component {
       <View style={styles.container}>
         <Image 
             style={[styles.imageProduct]}
-            source={this.props.image} />
+            source={{uri: this.props.image}} />
       </View>
     );
   }
@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     imageProduct: {
-        maxWidth: 200,
-        maxHeight: 180,
+        width,
+        height: 200,
+        // resizeMode: 'stretch'
     }
 })

@@ -20,7 +20,10 @@ class CheckOut extends Component {
   }
 
   render() {
-    console.log(this.props.carts)
+    let totalMoney = 0;
+      this.props.carts.map(
+         ({info, amount}) => totalMoney += (info.price - (info.discount * info.price / 100)) * amount
+      );
     return (
       <View style={styles.fill}>
         <Header title={'Checkout'} close={true} navigation={this.props.navigation} />
@@ -32,7 +35,7 @@ class CheckOut extends Component {
           <BoxItems data={this.props.carts} />
           <BoxTagCode />
         </ScrollView>
-        <CheckOutCart nameButton={"PLACE ORDER"} nameNavigate='CheckOutSuccess' navigation={this.props.navigation} priceTotal={100} />
+        <CheckOutCart nameButton={"PLACE ORDER"} nameNavigate='CheckOutSuccess' navigation={this.props.navigation} totalMoney={totalMoney} />
       </View>
     );
   }

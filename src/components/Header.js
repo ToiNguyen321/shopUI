@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 import { Icon, Item, Input } from 'native-base';
-import { TouchableWithoutFeedback, TouchableNativeFeedback } from 'react-native-gesture-handler';
+import { TouchableWithoutFeedback, TouchableNativeFeedback, TouchableOpacity } from 'react-native-gesture-handler';
 const { width, height } = Dimensions.get('window')
 export default class Header extends Component {
    constructor(props) {
@@ -32,13 +32,17 @@ export default class Header extends Component {
                this.props.search ? 
                <View style={styles.flex}>
                   <Item style={styles.itemSearch}>
-                     <Icon active name='search' style={styles.iconSearch} />
+                     <TouchableOpacity
+                        onPress={()=> this.props.searchFunction()}
+                     >
+                        <Icon active name='search' style={styles.iconSearch} />
+                     </TouchableOpacity>
                      <Input 
                         style={styles.textInputSearch}
                         onChangeText={(val) => this.props.onChangeText(val)}
                         placeholder="Search"
                         value={this.props.textSearch}
-                        onEndEditing={()=> this.props.searchFunction()}
+                        // onEndEditing={}
                      />
                   </Item>
                </View>

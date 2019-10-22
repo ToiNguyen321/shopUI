@@ -7,6 +7,7 @@ import BestSale from './BestSale';
 import BoxProduct from './BoxProduct';
 import { ScrollView } from 'react-native-gesture-handler';
 import { dataProducts } from '../../common/dataProduct';
+import Loading from '../loading/Loading';
 
 
 class Home extends Component {
@@ -75,8 +76,8 @@ class Home extends Component {
           {
             this.props.dataProducts.data.length > 0 ?
               this.renderBox()
-            : <View style={styles.container}>
-                <ActivityIndicator size="large" color="#0000ff" />
+            : <View style={styles.container, styles.loading}>
+                <Loading />
               </View>
           }
         </ScrollView>
@@ -100,5 +101,8 @@ const styles = StyleSheet.create({
   },
   boxProduct: {
     flex: 1,
+  },
+  loading: {
+    marginTop: 100,
   }
 })

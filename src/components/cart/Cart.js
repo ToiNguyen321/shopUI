@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions'
 import IconTab from '../../navigators/IconTab';
@@ -16,16 +16,10 @@ class Cart extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         data: dataCarts,
-         dataCarts: this.props.carts,
          priceTotal: 0,
       };
    }
    componentDidMount() {
-      // let numberProduct = 3;
-      // this.props.navigation.setParams({
-      //    numberProduct: numberProduct
-      // });
    }
    static navigationOptions = ({ navigation }) => ({
       tabBarIcon: ({ tintColor }) => (
@@ -33,19 +27,30 @@ class Cart extends Component {
       )
    })
    render() {
-      // console.log(this.props)
+      let totalMoney = 0;
+      this.props.carts.map(
+         ({ info, amount }) => totalMoney += (info.price - (info.discount * info.price / 100)) * amount
+      );
       return (
          <View style={styles.fill}>
             <Header title={'Cart'} back={false} navigation={this.props.navigation} />
-            <View style={styles.fill}>
-               <FlatList
-                  contentContainerStyle={styles.flatList}
-                  data={this.props.carts}
-                  keyExtractor={(item, index) => `${item.id}`}
-                  renderItem={({ item }) => <CartBox item={item} />}
-               />
-            </View>
-            <CheckOutCart navigation={this.props.navigation} />
+            {
+               this.props.carts.length > 0 ?
+                  <View style={styles.fill}>
+                     <View style={styles.fill}>
+                        <FlatList
+                           contentContainerStyle={styles.flatList}
+                           data={this.props.carts}
+                           keyExtractor={(item, index) => `${item.id}`}
+                           renderItem={({ item }) => <CartBox item={item} />}
+                        />
+                     </View>
+                     <CheckOutCart navigation={this.props.navigation} totalMoney={totalMoney} />
+                  </View>
+                  : <View style={styles.fill, styles.center}>
+                     <Text>Giỏ hàng trống!</Text>
+                  </View>
+            }
          </View>
       );
    }
@@ -64,5 +69,9 @@ const styles = StyleSheet.create({
    flatList: {
       paddingBottom: 69,
       paddingHorizontal: 20,
+   },
+   center: {
+      justifyContent: 'center',
+      alignItems: 'center'
    }
 })

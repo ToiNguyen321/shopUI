@@ -15,6 +15,7 @@ import Cart from '../components/cart/Cart';
 import CheckOut from '../components/checkOut/CheckOut';
 import CheckOutSuccess from '../components/checkOutSuccess/CheckOutSuccess';
 import SignUp from '../components/signUp/SignUp';
+import ProductMore from '../components/product/ProductMore.js';
 
 
 
@@ -74,6 +75,9 @@ const stackProduct = createStackNavigator(
       },
       Home: {
          screen: bottomTabNavigator
+      },
+      ProductMore: {
+         screen: ProductMore,
       },
       ProductDetail: {
          screen: ProductDetail,

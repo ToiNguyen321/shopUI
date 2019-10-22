@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { Text, StyleSheet, View, Image, Dimensions } from 'react-native'
 import { Icon } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import StylesText from '../../../styles/StylesText';
-import { colorIconCam } from '../../../styles/Color';
-import { IMAGE } from '../../../config';
+import StylesText from '../../styles/StylesText';
+import { colorIconCam } from '../../styles/Color';
+import { IMAGE } from '../../config';
 
-export default class SearchResultBox extends Component {
+export default class ProductMoreBox extends Component {
    constructor(props) {
       super(props);
    }

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../redux/actions';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { dataProducts, dataCarts } from '../../common/dataProduct';
- class CheckOutCart extends Component {
+class CheckOutCart extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,6 +15,10 @@ import { dataProducts, dataCarts } from '../../common/dataProduct';
     };
   }
   _navigate = (navigate) => {
+    if(this.props.carts.length === 0) {
+      alert("Giỏi hàng trống!");
+      return false;
+    }
     if(navigate !== 'CheckOut'){
       this.props.actionRemoveCart()
     }
@@ -22,23 +26,17 @@ import { dataProducts, dataCarts } from '../../common/dataProduct';
     this.props.navigation.navigate(navigate)
   }
   render() {
-    let totalMoney = 0;
-      this.state.data.forEach(item => {
-         this.props.carts.forEach(i => {
-            if(item.id === i.id){
-              totalMoney += item.price * i.amount;
-            }
-         });
-      });
+    console.log(this.props.totalMoney)
+
     const {nameNavigate, nameButton } = this.props
     let navigate = nameNavigate ? nameNavigate : 'CheckOut';
     return (
       <View style={styles.container}>
         <View style={[styles.fill]}>
             <Text style={styles.textTotal}>TOTAL</Text>
-            <Text numberOfLines={1} style={styles.priceTotal}>${`${totalMoney.toFixed(2)}`}</Text>
+            <Text numberOfLines={1} style={styles.priceTotal}>{`${this.props.totalMoney}K`}</Text>
         </View>
-        <View style={[styles.fill, { alignItems: 'flex-end', }]}>
+        <View style={[styles.fill, { alignItems: 'flex-end' }]}>
             <TouchableOpacity
                 activeOpacity={0.7}
                 style={ [styles.button, styles.buttonCart]}

@@ -12,6 +12,9 @@ import ProductAddCartBottom from "./ProductAddCartBottom";
 import ProductTabOne from "./ProductTabOne";
 import ProductTabTwo from "./ProductTabTwo";
 import ProductTabThree from "./ProductTabThree";
+import { fetchDataGet } from "../../common/Api";
+import { CMD, IMAGE } from "../../config";
+import Loading from "../loading/Loading";
 
 
 
@@ -39,10 +42,9 @@ class ProductDetail extends Component {
   heights = [300, 300, 300];
 
   tabContent = (item, i) =>{
-    
     let render = <ProductTabOne colorActive={this.state.colorActive} _changeColorActive={this._changeColorActive} />
-    if(i == 1){
-      render = <ProductTabTwo description={item.description} />
+    if(i === 1){
+      render = <ProductTabTwo description={item.content} />
     }else if(i === 2){
       render = <ProductTabThree />
     }
@@ -62,13 +64,20 @@ class ProductDetail extends Component {
 
   componentDidMount(){
     //Trả về 1 giá trị thỏa mãn
-    let dataProductDetail = dataProducts.find(item => item.id === this.state.idProduct);
-    this.setState({
-      dataProductDetail
+    let data = { cmd: CMD.GET_PRODUCT, idProduct: this.props.navigation.getParam('id') };
+    let url = 'Api?data='+JSON.stringify(data);
+    fetchDataGet(url)
+    .then(res=>res.json())
+    .then(resJ => {
+      this.setState({
+        dataProductDetail: resJ.data[0]
+      })
     })
+    .catch(ex => console.error(ex))
   }
   _addCart = () => {
-    this.props.actionAddCart({id: this.state.idProduct, amount: 1, color: this.state.colorActive});
+    let productCart = {id: this.state.idProduct, amount: 1, info: this.state.dataProductDetail };
+    this.props.actionAddCart(productCart);
   }
   _changeColorActive = (colorActive) => {
     this.setState((prevState, prevProps) => {
@@ -87,11 +96,10 @@ class ProductDetail extends Component {
 
   render() {
     const { dataProductDetail } = this.state
-    console.log("data ----------------", this.props.carts)
-    
+    // console.log(dataProductDetail)
     if(isObjEmpty(dataProductDetail))
-      return <View></View>;
-    const { name, price, rate, image } = dataProductDetail
+      return <Loading />;
+    let { name, price, rate, image } = dataProductDetail
     return (
       <View style={{ flex: 1 }}>
         <Header  back={true} navigation={this.props.navigation} />
@@ -105,7 +113,7 @@ class ProductDetail extends Component {
             { nativeEvent: { contentOffset: { y: this.nScroll } } }], 
             { useNativeDriver: true,
               listener: ({nativeEvent}) => {
-                  if (this.isCloseToBottom(nativeEvent)) {
+                  if (this.isCloseToBottom(nativeEvent) && this.state.activeTab === 2) {
                     console.log('xxxxxxxxxxx')
                   }
                 },
@@ -116,7 +124,7 @@ class ProductDetail extends Component {
             transform: [{ translateY: Animated.multiply(this.nScroll, 0.65) }],
             backgroundColor: BGR
           }}>
-            <ProductSlider image={image} />
+            <ProductSlider image={`${IMAGE}product/${image}`} />
           </Animated.View>
           <Tabs
             locked
@@ -156,10 +164,10 @@ class ProductDetail extends Component {
             <Tab heading="Product" tabStyle={{ padding: 0 }}>
               {this.tabContent(dataProductDetail, 0)}
             </Tab>
-            <Tab heading="Details">
+            <Tab heading="Details" tabStyle={{ padding: 0 }}>
               {this.tabContent(dataProductDetail, 1)}
             </Tab>
-            <Tab heading="Reviews">
+            <Tab heading="Reviews" tabStyle={{ padding: 0 }}>
               {this.tabContent(dataProductDetail, 2)}
             </Tab>
           </Tabs>
@@ -169,18 +177,15 @@ class ProductDetail extends Component {
     )
   }
 }
-const mapStateToProps = (state, ownProps) => {
-  return {
-      carts: state.carts
-  }
-}
-export default connect(mapStateToProps, actions)(ProductDetail);
+export default connect(null, actions)(ProductDetail);
 const styles = StyleSheet.create({
   renderTabBar: {
     zIndex: 1, 
     backgroundColor: BGR
   },
-  scrollTab: { backgroundColor: 'white', },
+  scrollTab: { 
+    backgroundColor: 'white' 
+  },
   viewTab: {
     flex: 1,
     backgroundColor: BGR

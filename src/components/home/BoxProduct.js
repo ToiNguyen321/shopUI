@@ -50,13 +50,18 @@ class BoxProduct extends Component {
          console.log("Hết sản phẩm")
       }
    }
+   _seeAll = () => {
+      this.props.navigate('ProductMore', {idCatalog: this.props.idCatalog})
+   }
    render() {
       // console.log(this.props.dataProducts.length, this.state.isEnd)
       return (
          <View style={styles.container}>
             <View style={styles.viewTop}>
                <Text>{this.props.title}</Text>
-               <TouchableOpacity>
+               <TouchableOpacity
+                  onPress={this._seeAll.bind(this)}
+               >
                   <Text>See all</Text>
                </TouchableOpacity>
             </View>
@@ -67,7 +72,7 @@ class BoxProduct extends Component {
                onScroll={this.props.onScroll}
                style={styles.flatList}
                data={this.state.dataProducts}
-               renderItem={({item, index}) => <ProductBox navigate={this.props.navigate} item={item} key={item.id} />}
+               renderItem={({item, index}) => <ProductBox navigate={this.props.navigate} item={item} id={item.id} />}
                keyExtractor={(item, index) => `${index}`}
                onEndReached={this._onEndReached.bind(this)}
                onEndReachedThreshold={0.2}

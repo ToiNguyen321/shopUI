@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../redux/actions'
 import { colorBorderButton, colorIconCam,  } from '../../styles/Color';
 import StylesText from '../../styles/StylesText';
+import { IMAGE } from '../../config';
 
 const { width } = Dimensions.get('window')
 class CartBox extends Component {
@@ -28,26 +29,27 @@ class CartBox extends Component {
       })
    }
    render() {
-      const item = this.props.item;
+      const item = this.props.item.info;
+      // console.log(item)
       return (
          <View>
          {
            this.state.numberItem > 0 ?
                <View style={styles.fill}>
                   <View style={styles.viewImage}>
-                     <Image style={styles.image} source={item.image} />
+                     <Image style={styles.image} source={{uri: `${IMAGE}product/${item.image}`}} />
                   </View>
                   <View style={styles.viewInfo}>
-                     <Text numberOfLines={1} style={[styles.name, StylesText.text]}>{this.props.item.name}</Text>
+                     <Text numberOfLines={1} style={[styles.name, StylesText.text]}>{item.name}</Text>
                      {/* <Text numberOfLines={1} style={[styles.color, StylesText.text]}>{color}</Text> */}
-                     <Text numberOfLines={1} style={styles.price}>${item.price}</Text>
+                     <Text numberOfLines={1} style={styles.price}>{item.price}k</Text>
                      <View style={styles.viewButton}>
                         <TouchableOpacity
                            onPress={() => this._minusCart(item.id)}
                         >
                            <Icon name="minuscircle" type="AntDesign" style={styles.iconButton} />
                         </TouchableOpacity>
-                        <Text style={styles.textNumberProduct}>{this.state.numberItem}</Text>
+                        <Text style={styles.textNumberProduct}>{item.amount}</Text>
                         <TouchableOpacity
                            onPress={() => this._addCart(item.id)}
                         >
@@ -74,14 +76,15 @@ const styles = StyleSheet.create({
       width: 100,
       height: 100,
       justifyContent: 'center',
-      backgroundColor: '#FFF',
+      // backgroundColor: '#FFF',
       borderRadius: 100,
       alignItems: 'center'
    },
    image: {
-      width: '70%',
-      height: '70%',
-      resizeMode: 'contain'
+      width: '100%',
+      height: '100%',
+      resizeMode: 'contain',
+      borderRadius: 10,
    },
    viewInfo: {
       flex: 1,

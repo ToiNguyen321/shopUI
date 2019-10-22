@@ -11,7 +11,7 @@ export default class ProductBox extends Component {
 
    render() {
       // console.log(`http://192.168.1.34/ShopAny/public/image/product/${this.props.item.image}`)
-      const { item, key } = this.props;
+      const { item, id } = this.props;
       return (
          <View style={[styles.fill, styles.marginRight, styles.marginLeft]}>
             <TouchableWithoutFeedback
