@@ -42,7 +42,7 @@ class Cart extends Component {
                            contentContainerStyle={styles.flatList}
                            data={this.props.carts}
                            keyExtractor={(item, index) => `${item.id}`}
-                           renderItem={({ item }) => <CartBox item={item} />}
+                           renderItem={({ item }) => <CartBox item={item} amount={item.amount} />}
                         />
                      </View>
                      <CheckOutCart navigation={this.props.navigation} totalMoney={totalMoney} />

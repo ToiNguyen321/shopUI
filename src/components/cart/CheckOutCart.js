@@ -26,7 +26,6 @@ class CheckOutCart extends Component {
     this.props.navigation.navigate(navigate)
   }
   render() {
-    console.log(this.props.totalMoney)
 
     const {nameNavigate, nameButton } = this.props
     let navigate = nameNavigate ? nameNavigate : 'CheckOut';

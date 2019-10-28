@@ -17,7 +17,7 @@ export const cartReducer = (state = stateCart, action) => {
          if (isProduct === false) {
             state.push(product);
          }
-         
+         console.log(state);
          return [...state];
       case types.MINUS_PRODUCT_TO_CART:
          state.map(item => {

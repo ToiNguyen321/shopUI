@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 import { Icon, Item, Input } from 'native-base';
 import { TouchableWithoutFeedback, TouchableNativeFeedback, TouchableOpacity } from 'react-native-gesture-handler';
-const { width, height } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window');
 export default class Header extends Component {
    constructor(props) {
       super(props);
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
       fontSize: 20,
    },
    fill: {
-      width,
+      // width,
       height: 45,
       flexDirection: 'row',
       justifyContent: 'space-between',

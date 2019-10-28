@@ -7,49 +7,45 @@ import * as actions from '../../redux/actions'
 import { colorBorderButton, colorIconCam,  } from '../../styles/Color';
 import StylesText from '../../styles/StylesText';
 import { IMAGE } from '../../config';
+import PropTypes from 'prop-types';
 
 const { width } = Dimensions.get('window')
 class CartBox extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         numberItem: this.props.item.amount
       };
    }
+
    _addCart = async (id) => {
       this.props.actionAddCart({ id: id })
-      this.setState({
-         numberItem: this.state.numberItem+1
-      })
    }
    _minusCart = async (id) => {
       this.props.actionMinusCart({ id: id })
-      this.setState({
-         numberItem: this.state.numberItem - 1
-      })
    }
    render() {
-      const item = this.props.item.info;
-      // console.log(item)
+ 
+      const { amount, item } = this.props;
+      const info = item.info;
       return (
          <View>
          {
-           this.state.numberItem > 0 ?
+           amount > 0 ?
                <View style={styles.fill}>
                   <View style={styles.viewImage}>
-                     <Image style={styles.image} source={{uri: `${IMAGE}product/${item.image}`}} />
+                     <Image style={styles.image} source={{uri: `${IMAGE}product/${info.image}`}} />
                   </View>
                   <View style={styles.viewInfo}>
-                     <Text numberOfLines={1} style={[styles.name, StylesText.text]}>{item.name}</Text>
+                     <Text numberOfLines={1} style={[styles.name, StylesText.text]}>{info.name}</Text>
                      {/* <Text numberOfLines={1} style={[styles.color, StylesText.text]}>{color}</Text> */}
-                     <Text numberOfLines={1} style={styles.price}>{item.price}k</Text>
+                     <Text numberOfLines={1} style={styles.price}>{info.price}k</Text>
                      <View style={styles.viewButton}>
                         <TouchableOpacity
                            onPress={() => this._minusCart(item.id)}
                         >
                            <Icon name="minuscircle" type="AntDesign" style={styles.iconButton} />
                         </TouchableOpacity>
-                        <Text style={styles.textNumberProduct}>{item.amount}</Text>
+                        <Text style={styles.textNumberProduct}>{amount}</Text>
                         <TouchableOpacity
                            onPress={() => this._addCart(item.id)}
                         >
@@ -64,7 +60,10 @@ class CartBox extends Component {
       );
    }
 }
-
+CartBox.propTypes = {
+   item: PropTypes.object,
+   amount: PropTypes.number,
+}
 export default connect(null, actions)(CartBox)
 const styles = StyleSheet.create({
    fill: {

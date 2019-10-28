@@ -40,9 +40,9 @@ export default class SearchResultBox extends Component {
 
 const styles = StyleSheet.create({
    fill: {
-      flex: 1,
+      // flex: 1,
       padding: 10,
-      maxWidth: Dimensions.get('window').width / 2 - 10
+      width: Dimensions.get('window').width / 2 - 10
    },
    container: {
       backgroundColor: 'white',
